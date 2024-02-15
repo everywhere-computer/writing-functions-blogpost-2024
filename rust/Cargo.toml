@@ -20,3 +20,18 @@ package = "component:add"
 
 [package.metadata.component.target.dependencies]
 "wasi:logging" = { path = "../wit/deps/logging" }
+
+[profile.release]
+# Will slow-down compile, but improve perf on generated code.
+codegen-units = 1
+# compiling with link time optimizations (LTO)
+lto = true
+# Tell `rustc` to optimize for small code size.
+opt-level = "z" # 'z' to optimize "aggressively" for size
+# Strip debug symbols
+# "symbols" issue: https://github.com/rust-lang/rust/issues/93294
+strip = "symbols"
+# Amount of debug information.
+# 0/false: no debug info at all; 1: line tables only; 2/true: full debug info
+debug = false
+debug-assertions = false
