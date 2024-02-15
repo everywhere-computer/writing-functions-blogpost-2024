@@ -30,11 +30,120 @@ use super::Component as _GuestImpl;
 pub trait Guest {
   fn add(a: i32,b: i32,) -> i32;
 }
+pub mod wasi {
+  pub mod logging {
+    
+    #[allow(clippy::all)]
+    pub mod logging {
+      #[used]
+      #[doc(hidden)]
+      #[cfg(target_arch = "wasm32")]
+      static __FORCE_SECTION_REF: fn() = super::super::super::__link_section;
+      /// A log level, describing a kind of message.
+      #[repr(u8)]
+      #[derive(Clone, Copy, Eq, PartialEq)]
+      pub enum Level {
+        /// Describes messages about the values of variables and the flow of
+        /// control within a program.
+        Trace,
+        /// Describes messages likely to be of interest to someone debugging a
+        /// program.
+        Debug,
+        /// Describes messages likely to be of interest to someone monitoring a
+        /// program.
+        Info,
+        /// Describes messages indicating hazardous situations.
+        Warn,
+        /// Describes messages indicating serious errors.
+        Error,
+        /// Describes messages indicating fatal errors.
+        Critical,
+      }
+      impl ::core::fmt::Debug for Level {
+        fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
+          match self {
+            Level::Trace => {
+              f.debug_tuple("Level::Trace").finish()
+            }
+            Level::Debug => {
+              f.debug_tuple("Level::Debug").finish()
+            }
+            Level::Info => {
+              f.debug_tuple("Level::Info").finish()
+            }
+            Level::Warn => {
+              f.debug_tuple("Level::Warn").finish()
+            }
+            Level::Error => {
+              f.debug_tuple("Level::Error").finish()
+            }
+            Level::Critical => {
+              f.debug_tuple("Level::Critical").finish()
+            }
+          }
+        }
+      }
+      
+      impl Level{
+        pub(crate) unsafe fn _lift(val: u8) -> Level{
+          if !cfg!(debug_assertions) {
+            return ::core::mem::transmute(val);
+          }
+          
+          match val {
+            0 => Level::Trace,
+            1 => Level::Debug,
+            2 => Level::Info,
+            3 => Level::Warn,
+            4 => Level::Error,
+            5 => Level::Critical,
+            
+            _ => panic!("invalid enum discriminant"),
+          }
+        }
+      }
+      
+      #[allow(unused_unsafe, clippy::all)]
+      /// Emit a log message.
+      /// 
+      /// A log message has a `level` describing what kind of message is being
+      /// sent, a context, which is an uninterpreted string meant to help
+      /// consumers group similar messages, and a string containing the message
+      /// text.
+      pub fn log(level: Level,context: &str,message: &str,){
+        
+        #[allow(unused_imports)]
+        use wit_bindgen::rt::{alloc, vec::Vec, string::String};
+        unsafe {
+          let vec0 = context;
+          let ptr0 = vec0.as_ptr() as i32;
+          let len0 = vec0.len() as i32;
+          let vec1 = message;
+          let ptr1 = vec1.as_ptr() as i32;
+          let len1 = vec1.len() as i32;
+          
+          #[cfg(target_arch = "wasm32")]
+          #[link(wasm_import_module = "wasi:logging/logging")]
+          extern "C" {
+            #[link_name = "log"]
+            fn wit_import(_: i32, _: i32, _: i32, _: i32, _: i32, );
+          }
+          
+          #[cfg(not(target_arch = "wasm32"))]
+          fn wit_import(_: i32, _: i32, _: i32, _: i32, _: i32, ){ unreachable!() }
+          wit_import(level.clone() as i32, ptr0, len0, ptr1, len1);
+        }
+      }
+      
+    }
+    
+  }
+}
 
 #[cfg(target_arch = "wasm32")]
-#[link_section = "component-type:example"]
+#[link_section = "component-type:math"]
 #[doc(hidden)]
-pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 176] = [3, 0, 7, 101, 120, 97, 109, 112, 108, 101, 0, 97, 115, 109, 13, 0, 1, 0, 7, 51, 1, 65, 2, 1, 65, 2, 1, 64, 2, 1, 97, 122, 1, 98, 122, 0, 122, 4, 0, 3, 97, 100, 100, 1, 0, 4, 1, 21, 99, 111, 109, 112, 111, 110, 101, 110, 116, 58, 97, 100, 100, 47, 101, 120, 97, 109, 112, 108, 101, 4, 0, 11, 13, 1, 0, 7, 101, 120, 97, 109, 112, 108, 101, 3, 0, 0, 0, 16, 12, 112, 97, 99, 107, 97, 103, 101, 45, 100, 111, 99, 115, 0, 123, 125, 0, 70, 9, 112, 114, 111, 100, 117, 99, 101, 114, 115, 1, 12, 112, 114, 111, 99, 101, 115, 115, 101, 100, 45, 98, 121, 2, 13, 119, 105, 116, 45, 99, 111, 109, 112, 111, 110, 101, 110, 116, 6, 48, 46, 49, 56, 46, 50, 16, 119, 105, 116, 45, 98, 105, 110, 100, 103, 101, 110, 45, 114, 117, 115, 116, 6, 48, 46, 49, 54, 46, 48];
+pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 289] = [3, 0, 4, 109, 97, 116, 104, 0, 97, 115, 109, 13, 0, 1, 0, 7, 169, 1, 1, 65, 2, 1, 65, 4, 1, 66, 4, 1, 109, 6, 5, 116, 114, 97, 99, 101, 5, 100, 101, 98, 117, 103, 4, 105, 110, 102, 111, 4, 119, 97, 114, 110, 5, 101, 114, 114, 111, 114, 8, 99, 114, 105, 116, 105, 99, 97, 108, 4, 0, 5, 108, 101, 118, 101, 108, 3, 0, 0, 1, 64, 3, 5, 108, 101, 118, 101, 108, 1, 7, 99, 111, 110, 116, 101, 120, 116, 115, 7, 109, 101, 115, 115, 97, 103, 101, 115, 1, 0, 4, 0, 3, 108, 111, 103, 1, 2, 3, 1, 20, 119, 97, 115, 105, 58, 108, 111, 103, 103, 105, 110, 103, 47, 108, 111, 103, 103, 105, 110, 103, 5, 0, 1, 64, 2, 1, 97, 122, 1, 98, 122, 0, 122, 4, 0, 3, 97, 100, 100, 1, 1, 4, 1, 22, 102, 105, 115, 115, 105, 111, 110, 58, 97, 100, 100, 47, 109, 97, 116, 104, 64, 48, 46, 49, 46, 48, 4, 0, 11, 10, 1, 0, 4, 109, 97, 116, 104, 3, 0, 0, 0, 16, 12, 112, 97, 99, 107, 97, 103, 101, 45, 100, 111, 99, 115, 0, 123, 125, 0, 70, 9, 112, 114, 111, 100, 117, 99, 101, 114, 115, 1, 12, 112, 114, 111, 99, 101, 115, 115, 101, 100, 45, 98, 121, 2, 13, 119, 105, 116, 45, 99, 111, 109, 112, 111, 110, 101, 110, 116, 6, 48, 46, 49, 56, 46, 50, 16, 119, 105, 116, 45, 98, 105, 110, 100, 103, 101, 110, 45, 114, 117, 115, 116, 6, 48, 46, 49, 54, 46, 48];
 
 #[inline(never)]
 #[doc(hidden)]
