@@ -42,6 +42,31 @@
         "op": "wasm/run",
         "rsc": "ipfs://bafybeifuj2fck4z666zzakagmcmntmyblgg22qzjuy2tmswx3j3mjmvlm4"
       }
+    },
+    {
+      "cause": null,
+      "meta": {
+        "fuel": 18446744073709552000,
+        "memory": 4294967296,
+        "time": 100000
+      },
+      "prf": [],
+      "run": {
+        "input": {
+          "args": [
+            {
+              "await/ok": {
+                "/": "bafyrmid7tqfp64ewr64iszb2succziuxkdysvdaa3alsta2bpyhyvgephq"
+              }
+            },
+            7
+          ],
+          "func": "multiply"
+        },
+        "nnc": "",
+        "op": "wasm/run",
+        "rsc": "ipfs://bafybeih5owidnc7q5ywoyizyi4mfbnh5wfreouoyms5ydykgmdwprbauqa"
+      }
     }
   ]
 }
