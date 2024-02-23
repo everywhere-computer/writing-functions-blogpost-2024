@@ -1,0 +1,27 @@
+{
+  "name": "subtract",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "JavaScript subtract function compiled to a Wasm component",
+  "main": "index.js",
+  "scripts": {
+    "build": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/everywhere-computer/writing-functions-blogpost-2024.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/everywhere-computer/writing-functions-blogpost-2024/issues"
+  },
+  "homepage": "https://github.com/everywhere-computer/writing-functions-blogpost-2024#readme",
+  "dependencies": {
+    "@bytecodealliance/componentize-js": "^0.7.1"
+  },
+  "devDependencies": {
+    "@tsconfig/recommended": "^1.0.3"
+  }
+}

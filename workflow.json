@@ -15,7 +15,32 @@
         },
         "nnc": "",
         "op": "wasm/run",
-        "rsc": "ipfs://bafkreidd7gbtku36onexcab2btmb4mphpohlivijs2e3nbikg4ylndlrhi"
+        "rsc": "ipfs://bafkreidqhyhxmn53hsfdqmq2ecb2ahxgjt2syyzcodp64gi3yrkq3jc4eu"
+      }
+    },
+    {
+      "cause": null,
+      "meta": {
+        "fuel": 18446744073709552000,
+        "memory": 4294967296,
+        "time": 100000
+      },
+      "prf": [],
+      "run": {
+        "input": {
+          "args": [
+            {
+              "await/ok": {
+                "/": "bafyrmidncpowcchtlku5j7gkzm33yrcw567pfusc2sb2x5fhf5dbsxwrzm"
+              }
+            },
+            2
+          ],
+          "func": "subtract"
+        },
+        "nnc": "",
+        "op": "wasm/run",
+        "rsc": "ipfs://bafybeifuj2fck4z666zzakagmcmntmyblgg22qzjuy2tmswx3j3mjmvlm4"
       }
     }
   ]

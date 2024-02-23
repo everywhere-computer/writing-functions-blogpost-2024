@@ -14,7 +14,7 @@ impl Guest for Component {
         #[cfg(target_arch = "wasm32")]
         log(
             Level::Info,
-            "guest:add",
+            "guest:rust:add",
             format!("{a} + {b} = {result}").as_str(),
         );
 
