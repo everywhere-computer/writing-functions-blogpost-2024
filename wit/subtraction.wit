@@ -1,6 +1,6 @@
-package fission:subtract@0.1.0;
+package fission:math@0.1.0;
 
-world math {
+world subtraction {
   import wasi:logging/logging;
 
   export subtract: func(a: s32, b: s32) -> s32;

@@ -17,7 +17,7 @@ pip install -r requirements.txt
 Build using `componentize-py`:
 
 ```sh
-componentize-py -d wit -w maths componentize app -o output/multiply.wasm
+componentize-py -d ../wit -w multiplication componentize app -o output/multiply.wasm
 ```
 
 The `-d` option is the directory with our WIT definitions and `-w` is the [`maths` world][maths-wit] we are building.

@@ -1,6 +1,6 @@
-package fission:multiply@0.1.0;
+package fission:math@0.1.0;
 
-world maths {
+world multiplication {
   import wasi:logging/logging;
 
   export multiply: func(a: s32, b: s32) -> s32;

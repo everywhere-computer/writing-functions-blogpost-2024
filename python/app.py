@@ -1,7 +1,7 @@
-import maths
-from maths.imports.logging import (log, Level)
+import multiplication
+from multiplication.imports.logging import (log, Level)
 
-class Maths(maths.Maths):
+class Multiplication(multiplication.Multiplication):
     def multiply(self, a, b) -> int:
         result = a * b
 

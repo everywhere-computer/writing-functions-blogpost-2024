@@ -1,5 +1,5 @@
 [package]
-name = "add"
+name = "math"
 version = "0.1.0"
 edition = "2021"
 
@@ -12,11 +12,13 @@ wit-bindgen = { version = "0.18.0", default-features = false, features = [
 crate-type = ["cdylib"]
 
 [package.metadata.component]
-package = "component:add"
+package = "component:math"
 
 [package.metadata.component.dependencies]
 
 [package.metadata.component.target]
+path = "../wit/math.wit"
+world = "math"
 
 [package.metadata.component.target.dependencies]
 "wasi:logging" = { path = "../wit/deps/logging" }

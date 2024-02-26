@@ -1,4 +1,4 @@
-package fission:add@0.1.0;
+package fission:math@0.1.0;
 
 world math {
   import wasi:logging/logging;

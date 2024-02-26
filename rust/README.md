@@ -12,7 +12,7 @@ Install [`cargo-component`][cargo-component]:
 cargo install cargo-component
 ```
 
-The initial code was generated with the `cargo component new --lib add` command, which generates Hello World starter code. We've adapted that to replace it with our add function.
+The initial code was generated with the `cargo component new --lib math` command, which generates Hello World starter code. We've adapted that to replace it with our add function.
 
 We linked the WASI logging dependency from the `wit` directory in the root of our project:
 
@@ -40,7 +40,7 @@ Build for release:
 cargo component build --release
 ```
 
-The builds target `wasm32-wasi` and are compiled to `rust/target/wasm32-wasi/debug/add.wasm` and `rust/target/wasm32-wasi/release/add.wasm` respectively.
+The builds target `wasm32-wasi` and are compiled to `rust/target/wasm32-wasi/debug/math.wasm` and `rust/target/wasm32-wasi/release/math.wasm` respectively.
 
 [cargo-component]: https://github.com/bytecodealliance/cargo-component
 [install-rust]: https://www.rust-lang.org/tools/install

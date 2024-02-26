@@ -3,17 +3,17 @@
 version = 3
 
 [[package]]
-name = "add"
-version = "0.1.0"
-dependencies = [
- "wit-bindgen",
-]
-
-[[package]]
 name = "bitflags"
 version = "2.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ed570934406eb16438a4e976b1b4500774099c13b8cb96eec99f620f05090ddf"
+
+[[package]]
+name = "math"
+version = "0.1.0"
+dependencies = [
+ "wit-bindgen",
+]
 
 [[package]]
 name = "wit-bindgen"
