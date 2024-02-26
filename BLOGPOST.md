@@ -55,9 +55,9 @@ Introduce Homestar.
 #### Workflows
 
 - Add only
-  - Show running only the addition function
-  - Show logging and retrieving receipt from IPFS
-  - Show where the instruction CID
+  - Show uploading Wasm component to IPFS and retrieving CID
+  - Show running the addition function and logging
+  - Show where to find the instruction CID for the next step
 - Add and subtract
   - Add JavaScript subtract to the worklflow, awaiting result of addition
   - Run that and show logs again
@@ -65,8 +65,8 @@ Introduce Homestar.
   - Show logs and note execution time for each
   - Show a second run with replays
   - Division by zero
-  - Update workflow to divide by zero at end
 - Show logs with a division by zero error
+  - Update workflow to divide by zero at end
 
 ### Everywhere Computer
 
