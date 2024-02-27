@@ -1,0 +1,47 @@
+{
+  "tasks": [
+    {
+      "cause": null,
+      "meta": {
+        "fuel": 18446744073709552000,
+        "memory": 4294967296,
+        "time": 100000
+      },
+      "prf": [],
+      "run": {
+        "input": {
+          "args": [3.0, 5.0],
+          "func": "add"
+        },
+        "nnc": "",
+        "op": "wasm/run",
+        "rsc": "ipfs://bafkreihofznkwpkfsnum2edi3j2kzehujkl3tvdvjupsp3apikjlkiwqje"
+      }
+    },
+    {
+      "cause": null,
+      "meta": {
+        "fuel": 18446744073709552000,
+        "memory": 4294967296,
+        "time": 100000
+      },
+      "prf": [],
+      "run": {
+        "input": {
+          "args": [
+            {
+              "await/ok": {
+                "/": "bafyrmihotachqg2knxz5r3mflnso6zmgxepegjz2zp2zuavvl2n6bgxgfe"
+              }
+            },
+            2.0
+          ],
+          "func": "subtract"
+        },
+        "nnc": "",
+        "op": "wasm/run",
+        "rsc": "ipfs://bafybeidnhofwlqddy2uozd42su6vpy55amek4kqoiyqwchhpsm62nursg4"
+      }
+    }
+  ]
+}

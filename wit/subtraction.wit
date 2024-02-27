@@ -3,5 +3,5 @@ package fission:math@0.1.0;
 world subtraction {
   import wasi:logging/logging;
 
-  export subtract: func(a: s32, b: s32) -> s32;
+  export subtract: func(a: float32, b: float32) -> float32;
 }

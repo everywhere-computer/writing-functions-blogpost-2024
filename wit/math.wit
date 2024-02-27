@@ -3,5 +3,6 @@ package fission:math@0.1.0;
 world math {
   import wasi:logging/logging;
 
-  export add: func(a: s32, b: s32) -> s32;
+  export add: func(a: float32, b: float32) -> float32;
+  export divide: func(a: float32, b: float32) -> float32;
 }

@@ -3,5 +3,5 @@ package fission:math@0.1.0;
 world multiplication {
   import wasi:logging/logging;
 
-  export multiply: func(a: s32, b: s32) -> s32;
+  export multiply: func(a: float32, b: float32) -> float32;
 }

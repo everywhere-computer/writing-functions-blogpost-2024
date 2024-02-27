@@ -56,17 +56,17 @@ Introduce Homestar.
 
 - Add only
   - Show uploading Wasm component to IPFS and retrieving CID
-  - Show running the addition function and logging
+  - Show workflow running the addition function and logging (`workflows/add.json`)
   - Show where to find the instruction CID for the next step
+  - Note that logs won't display on replay
 - Add and subtract
-  - Add JavaScript subtract to the worklflow, awaiting result of addition
+  - Run workflow with JavaScript subtract function, awaiting result of addition (`workflows/add_and_subtract.json`)
   - Run that and show logs again
 - All four functions
+  - Run workflow with all four functions (`workflows/all.json`)
   - Show logs and note execution time for each
-  - Show a second run with replays
-  - Division by zero
 - Show logs with a division by zero error
-  - Update workflow to divide by zero at end
+  - Run workflow with division by zero (`workflows/division_by_zero.json`)
 
 ### Everywhere Computer
 
