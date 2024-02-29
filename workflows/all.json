@@ -1,96 +1,39 @@
 {
   "tasks": [
     {
-      "cause": null,
-      "meta": {
-        "fuel": 18446744073709552000,
-        "memory": 4294967296,
-        "time": 100000
-      },
-      "prf": [],
       "run": {
+        "name": "add",
         "input": {
-          "args": [3.0, 5.0],
+          "args": [3.1, 5.2],
           "func": "add"
-        },
-        "nnc": "",
-        "op": "wasm/run",
-        "rsc": "ipfs://bafkreihofznkwpkfsnum2edi3j2kzehujkl3tvdvjupsp3apikjlkiwqje"
+        }
       }
     },
     {
-      "cause": null,
-      "meta": {
-        "fuel": 18446744073709552000,
-        "memory": 4294967296,
-        "time": 100000
-      },
-      "prf": [],
       "run": {
+        "name": "subtract",
         "input": {
-          "args": [
-            {
-              "await/ok": {
-                "/": "bafyrmihotachqg2knxz5r3mflnso6zmgxepegjz2zp2zuavvl2n6bgxgfe"
-              }
-            },
-            2.0
-          ],
+          "args": ["{{needs.add.output}}", 4.4],
           "func": "subtract"
-        },
-        "nnc": "",
-        "op": "wasm/run",
-        "rsc": "ipfs://bafybeidnhofwlqddy2uozd42su6vpy55amek4kqoiyqwchhpsm62nursg4"
+        }
       }
     },
     {
-      "cause": null,
-      "meta": {
-        "fuel": 18446744073709552000,
-        "memory": 4294967296,
-        "time": 100000
-      },
-      "prf": [],
       "run": {
+        "name": "multiply",
         "input": {
-          "args": [
-            {
-              "await/ok": {
-                "/": "bafyrmigag63kvyh5rwuzsb6ldkpc4he5ifntaotdpvypgznkuufkur6tka"
-              }
-            },
-            7.0
-          ],
+          "args": ["{{needs.subtract.output}}", 2.3],
           "func": "multiply"
-        },
-        "nnc": "",
-        "op": "wasm/run",
-        "rsc": "ipfs://bafybeiha627xkq6kohfnhscui4iub2ol6gd6a4fxvcbf25coqbmzsjavxi"
+        }
       }
     },
     {
-      "cause": null,
-      "meta": {
-        "fuel": 18446744073709552000,
-        "memory": 4294967296,
-        "time": 100000
-      },
-      "prf": [],
       "run": {
+        "name": "divide",
         "input": {
-          "args": [
-            {
-              "await/ok": {
-                "/": "bafyrmicy4i5ebtfh6xegfolf4syj5zrr72auwo4bdp3z7iwojbksxjr6bi"
-              }
-            },
-            5.0
-          ],
+          "args": ["{{needs.multiply.output}}", 1.5],
           "func": "divide"
-        },
-        "nnc": "",
-        "op": "wasm/run",
-        "rsc": "ipfs://bafkreihofznkwpkfsnum2edi3j2kzehujkl3tvdvjupsp3apikjlkiwqje"
+        }
       }
     }
   ]

@@ -98,34 +98,86 @@ Post the workflow to the gateway:
 curl localhost:3000/run --json @workflows/add.json
 ```
 
-The response should contain the result of adding `3.1` and `5.2`:
-
-```sh TODO: Replace with screenshot
-» curl localhost:3000/run --json @workflows/add.json
-8.299999
-```
+The response reports the result of adding `3.1` and `5.2` as `8.299999`.
 
 In addition, `every-cli` has passed along our WASI log from the Homestar runtime:
 
-```
-ts=2024-02-28T00:19:22.413842Z level=info target=homestar_wasm::wasmtime::host::helpers message="3.1 + 5.2 = 8.299999" subject=wasm_execution category=guest:rust:add
+![add-logs](assets/add.png)
+
+Let's try a workflow that uses all four arithmetic operations from our Rust, JavaScript, and Python sourced components:
+
+```json
+{
+  "tasks": [
+    {
+      "run": {
+        "name": "add",
+        "input": {
+          "args": [3.1, 5.2],
+          "func": "add"
+        }
+      }
+    },
+    {
+      "run": {
+        "name": "subtract",
+        "input": {
+          "args": ["{{needs.add.output}}", 4.4],
+          "func": "subtract"
+        }
+      }
+    },
+    {
+      "run": {
+        "name": "multiply",
+        "input": {
+          "args": ["{{needs.subtract.output}}", 2.3],
+          "func": "multiply"
+        }
+      }
+    },
+    {
+      "run": {
+        "name": "divide",
+        "input": {
+          "args": ["{{needs.multiply.output}}", 1.5],
+          "func": "divide"
+        }
+      }
+    }
+  ]
+}
 ```
 
-- All four functions
-  - Run workflow with all four functions (`workflows/all.json`)
-  - Show logs and note execution time for each
-- Show logs with a division by zero error
-  - Run workflow with division by zero (`workflows/division_by_zero.json`)
+Restart `every-cli` passing in all of our Wasm components:
+
+```sh
+every dev --fn rust/target/wasm32-wasi/release/math.wasm --fn javascript/output/subtract.wasm --fn python/output/multiply.wasm --debug
+```
+
+We are also using the `--debug` flag on this run to force re-execution of the tasks in our workflow. In a production setting, Homestar will cache the results of tasks it has previously executed, but for our purposes we want each task to be run to see the WASI logs.
+
+Post this workflow:
+
+```sh
+curl localhost:3000/run --json @workflows/all.json
+```
+
+The response reports a result of `5.979998` which looks close enough for computer math!
+
+Our WASI logging reports each operation:
+
+![all-logs](assets/all.png)
+
+Lastly, a workflow that attempts division by zero to check our error reporting.
+
+TODO: Add division by zero when we can represent `0.0` as a float without conversion to an integer. Use `workflows/division_by_zero.json`.
 
 ### Everywhere Computer Control Panel
 
 You may have noticed `every-cli` starts a Control Panel:
 
-```
-
-✔ Control Panel is running at http://127.0.0.1:4173
-
-```
+![control-panel](assets/control-panel.png)
 
 We have a web UI in progress that we will discuss in a future post.
 

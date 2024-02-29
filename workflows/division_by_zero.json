@@ -1,21 +1,12 @@
 {
   "tasks": [
     {
-      "cause": null,
-      "meta": {
-        "fuel": 18446744073709552000,
-        "memory": 4294967296,
-        "time": 100000
-      },
-      "prf": [],
       "run": {
+        "name": "divide",
         "input": {
-          "args": [3.0, 0.0],
+          "args": [3.1, 0.0],
           "func": "divide"
-        },
-        "nnc": "",
-        "op": "wasm/run",
-        "rsc": "ipfs://bafkreihofznkwpkfsnum2edi3j2kzehujkl3tvdvjupsp3apikjlkiwqje"
+        }
       }
     }
   ]
