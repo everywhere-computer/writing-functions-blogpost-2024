@@ -1,11 +1,6 @@
-import { componentize } from "@bytecodealliance/componentize-js";
-import { readFileSync } from "node:fs";
-import { writeFile } from "node:fs/promises";
+import { build } from "@fission-codes/homestar/wasmify";
 
-const jsSource = readFileSync("src/subtract.js").toString();
-const { component } = await componentize(jsSource, {
-  witPath: "../wit",
-  worldName: "subtraction",
+await build({
+  entryPoint: "src/subtract.ts",
+  outDir: "output",
 });
-
-await writeFile("output/subtract.wasm", component);

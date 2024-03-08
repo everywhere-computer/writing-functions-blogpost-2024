@@ -19,7 +19,8 @@
   },
   "homepage": "https://github.com/everywhere-computer/writing-functions-blogpost-2024#readme",
   "dependencies": {
-    "@bytecodealliance/componentize-js": "^0.7.1"
+    "@bytecodealliance/componentize-js": "^0.7.1",
+    "@fission-codes/homestar": "^2.2.1"
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.3"

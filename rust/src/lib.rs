@@ -8,7 +8,7 @@ use bindings::Guest;
 struct Component;
 
 impl Guest for Component {
-    fn add(a: f32, b: f32) -> f32 {
+    fn add(a: f64, b: f64) -> f64 {
         let result = a + b;
 
         #[cfg(target_arch = "wasm32")]
@@ -21,7 +21,7 @@ impl Guest for Component {
         result
     }
 
-    fn divide(a: f32, b: f32) -> f32 {
+    fn divide(a: f64, b: f64) -> f64 {
         if b == 0.0 {
             #[cfg(target_arch = "wasm32")]
             log(
