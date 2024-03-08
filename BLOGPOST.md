@@ -171,7 +171,27 @@ Our WASI logging reports each operation:
 
 Lastly, a workflow that attempts division by zero to check our error reporting.
 
-TODO: Add division by zero when we can represent `0.0` as a float without conversion to an integer. Use `workflows/division_by_zero.json`.
+```json
+{
+  "tasks": [
+    {
+      "run": {
+        "name": "divide",
+        "input": {
+          "args": [3.1, 0.0],
+          "func": "divide"
+        }
+      }
+    }
+  ]
+}
+```
+
+On running this workflow, we see two errors:
+
+![division-by-zero](assets/division-by-zero.png)
+
+The first error is our WASI log reporting a "Division by zero error". The second error is an execution error from the Wasm runtime. It's a bit inscutable, but we can see "not able to run fn divide" which tells us which function failed.
 
 ### Everywhere Computer Control Panel
 
