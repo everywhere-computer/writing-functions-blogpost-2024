@@ -1,6 +1,6 @@
 # Python
 
-For Python, we implement a multiply function. The multiply function multiplies two signed integers and returns a signed integer result. It also logs the multiplication operation.
+For Python, we implement a multiply function. The multiply function multiplies two floats and returns a float result. It also logs the multiplication operation.
 
 ## Setup
 
@@ -20,10 +20,10 @@ Build using `componentize-py`:
 componentize-py -d ../wit -w multiplication componentize app -o output/multiply.wasm
 ```
 
-The `-d` option is the directory with our WIT definitions and `-w` is the [`maths` world][maths-wit] we are building.
+The `-d` option is the directory with our WIT definitions and `-w` is the [`multiplication` world][multiplication-wit] we are building.
 
 The `componentize` operation targets `app.py` and outputs a Wasm component to the `output` directory.
 
 [componentize-py]: https://github.com/bytecodealliance/componentize-py
 [install-python]: https://www.python.org/downloads/
-[maths-wit]: ./wit/world.wit
+[multiplication-wit]: ../wit/multiplication.wit

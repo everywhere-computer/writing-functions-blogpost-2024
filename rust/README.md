@@ -1,6 +1,8 @@
 # Rust
 
-For Rust, we implement an add function. The add function adds two signed integers and returns a signed integer result. It also logs the addition operation.
+For Rust, we implement add and divide functions. Our functions add or divide two floats and return a float result. They also log the addition and division operations.
+
+In addition, the divide function checks for division by zero errors and logs an error when this happens.
 
 ## Setup
 
@@ -12,7 +14,15 @@ Install [`cargo-component`][cargo-component]:
 cargo install cargo-component
 ```
 
-The initial code was generated with the `cargo component new --lib math` command, which generates Hello World starter code. We've adapted that to replace it with our add function.
+The initial code was generated with the `cargo component new --lib math` command, which generates hello world starter code. We've adapted that to replace it with our functions.
+
+Our [`math` WIT interface][math-wit] is referenced in `Cargo.toml`:
+
+```toml
+[package.metadata.component.target]
+path = "../wit/math.wit"
+world = "math"
+```
 
 We linked the WASI logging dependency from the `wit` directory in the root of our project:
 
@@ -44,3 +54,4 @@ The builds target `wasm32-wasi` and are compiled to `rust/target/wasm32-wasi/deb
 
 [cargo-component]: https://github.com/bytecodealliance/cargo-component
 [install-rust]: https://www.rust-lang.org/tools/install
+[math-wit]: ../wit/math.wit
