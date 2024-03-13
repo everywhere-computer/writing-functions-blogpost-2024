@@ -1,4 +1,4 @@
-#[allow(dead_code)]
+#[allow(warnings)]
 mod bindings;
 
 #[cfg(target_arch = "wasm32")]
@@ -45,3 +45,5 @@ impl Guest for Component {
         result
     }
 }
+
+bindings::export!(Component with_types_in bindings);
