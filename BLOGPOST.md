@@ -2,7 +2,7 @@ Everywhere Computer is a compute platform for InterPlanetary Virtual Machine (IP
 
 Homestar runs Wasm-based workflows where Wasm components provide functions to execute. Wasm components can be authored in Rust, JavaScript, and Python. Reading ahead, we'll be writing functions in each of these languages, compiling them to Wasm, packaging them as Wasm components, and bringing them together into a workflow.
 
-Our goal is to introduce authoring functions for Everywhere Computer. Along the way, we'll introduce Wasm component tooling, the Homestar runtime, and the `every-cli` that runs the Homestar runtime and a gateway for managing Wasm components and preparing workflows.
+Our goal is to introduce authoring functions for Everywhere Computer. Along the way, we'll introduce Wasm component tooling, the Homestar runtime, and Every CLI which composes Homestar and a gateway for managing Wasm components and preparing workflows.
 
 ### Wasm components, WIT, and WASI logging
 
@@ -60,11 +60,11 @@ The daemon should run on the default `5001` port.
 
 ### Workflows
 
-We now have a set of Wasm components with arithmetic functions sourced from multiple languages. Our next step is to run these functions together in workflows.
+We now have a set of Wasm components with arithmetic functions sourced from multiple languages. Our next step is to run these functions in workflows.
 
-The `every-cli` starts a gateway that loads Wasm components, prepares workflows, and calls on the Homestar runtime to execute them. [Install `every-cli`][install-every-cli], and we'll write a workflow.
+Every CLI starts a gateway that loads Wasm components, prepares workflows, and calls on the Homestar runtime to run them. [Install Every CLI][install-every-cli], then we'll write a workflow.
 
-The workflows that Homestar runs are a bit challenging to write by hand, so `every-cli` provides a simplfied workflow syntax that it uses to prepare the underlying workflow. Let's start by using `math.wasm` to add two numbers:
+The workflows that Homestar runs are a bit challenging to write by hand, so Every CLI provides a simplfied workflow syntax that it uses to prepare the underlying workflow. Let's start by using `math.wasm` to add two numbers:
 
 ```json
 {
@@ -84,13 +84,13 @@ The workflows that Homestar runs are a bit challenging to write by hand, so `eve
 
 A workflow is an array of tasks that we would like to execute. Each task is given a `name` which will be used to reference results in subsequent tasks. Our task `input` includes the name of the function to execute and the arguments to the function.
 
-Let's run this workflow! Start `every-cli` with `math.wasm` as argument:
+Let's run this workflow! Start Every CLI with `math.wasm` as an argument:
 
 ```sh
 every dev --fn rust/target/wasm32-wasi/release/math.wasm
 ```
 
-`every-cli` will start a gateway that we can query for a JSON Schema representing the WIT interfaces in `math.wasm` at `localhost:3000`.
+Every CLI starts a gateway that we can query for a JSON Schema representing the WIT interfaces in `math.wasm` at `localhost:3000`.
 
 Post the workflow to the gateway:
 
@@ -98,11 +98,23 @@ Post the workflow to the gateway:
 curl localhost:3000/run --json @workflows/add.json
 ```
 
-The response reports the result of adding `3.1` and `5.2` as `8.299999`.
+The response reports the result of adding `3.1` and `5.2` as `8.3`.
 
-In addition, `every-cli` has passed along our WASI log from the Homestar runtime:
+In addition, Every CLI has passed along logs from the Homestar runtime:
 
 ![add-logs](assets/add.png)
+
+The logs report information about workflow execution and include our WASI logs. Our WASI log reports `"3.1 + 5.2 = 8.3"` with the category `guest:rust:add`. WASI logs always have the `wasm_execution` subject.
+
+We can also see workflow settings, fetching resources (our Wasm components), intializing, starting, and completing the workflow. The resolving receipts log shows that Homestar is looking for cached results so it can avoid work where possible. The computed receipt log reports the CID of the receipt from the add computation. Every CLI returns the workflow result, but the computed receipts can be also used to pull results directly from IPFS by CID.
+
+If we post the workflow to the gateway again, we see a different set of logs:
+
+![add-replay-logs](assets/add-replay.png)
+
+This time we don't need to do any work. Homestar cached the receipts from our last run, and reports that it is replaying the workflow and its receipts. 
+
+Notice also that our WASI log does not show up. WASI logs only happen on execution, not replay. We'll see in a moment how we can force re-execution to always see WASI logs.
 
 Let's try a workflow that uses all four arithmetic operations from our Rust, JavaScript, and Python sourced components:
 
@@ -149,13 +161,15 @@ Let's try a workflow that uses all four arithmetic operations from our Rust, Jav
 }
 ```
 
-Restart `every-cli` passing in all of our Wasm components:
+Restart Every CLI, passing in all of our Wasm components:
 
 ```sh
-every dev --fn rust/target/wasm32-wasi/release/math.wasm --fn javascript/output/subtract.wasm --fn python/output/multiply.wasm --debug
+every dev --fn rust/target/wasm32-wasi/release/math.wasm --fn javascript/output/subtract-j54di3rspj2eewjro4.wasm --fn python/output/multiply.wasm --debug
 ```
 
-We are also using the `--debug` flag on this run to force re-execution of the tasks in our workflow. In a production setting, Homestar will cache the results of tasks it has previously executed, but for our purposes we want each task to be run to see the WASI logs.
+The hash of your subtract Wasm component may be different. Check `javascript/output` for the appropriate file name.
+
+We use the `--debug` flag this time to force re-execution of the tasks in our workflow. The `--debug` flag lets us see our WASI logs on every run while we are developing our functions, but should not be used in production because it eliminates the benefits of caching.
 
 Post this workflow:
 
@@ -163,11 +177,13 @@ Post this workflow:
 curl localhost:3000/run --json @workflows/all.json
 ```
 
-The response reports a result of `5.979998` which looks close enough for computer math!
+The response reports a result of `5.98` which looks close enough for computer math!
 
 Our WASI logging reports each operation:
 
 ![all-logs](assets/all.png)
+
+We can see WASI logs from each of our components, labeled by category as `guest:rust:add`, `guest:javascript:subtract`, `guest:python:multiply`, and `guest:rust:divide`.
 
 Lastly, a workflow that attempts division by zero to check our error reporting.
 
