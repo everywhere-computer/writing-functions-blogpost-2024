@@ -157,11 +157,49 @@ See [Making JavaScript run fast on WebAssembly][javascript-webassembly-post] for
 
 #### Python
 
-https://www.youtube.com/watch?v=PkAO17lmqsI
+For Python, we use [componentize-py][componentize-py] to generate a Wasm component.
 
-Around 15 minutes, ships CPython, libc and more
+Our WIT interface defines a `multiply` function:
 
-- Words...
+```
+package fission:math@0.1.0;
+
+world multiplication {
+  import wasi:logging/logging;
+
+  export multiply: func(a: float64, b: float64) -> float64;
+}
+```
+
+`componentize-py` generates a set of bindings to import in our Python source code. Unlike Rust, the bindings do not need to be written to a file and can be generated on the fly.
+
+Our Python source code multiplies two numbers and logs the operation:
+
+```python
+import multiplication
+from multiplication.imports.logging import (log, Level)
+
+class Multiplication(multiplication.Multiplication):
+    def multiply(self, a, b) -> float:
+        result = a * b
+
+        log(Level.INFO, 'guest:python:multiply', '{} * {} = {}'.format(a, b, result))
+
+        return a * b
+```
+
+We run `componentize-py` to generate our Wasm component:
+
+```sh
+componentize-py -d ../wit -w multiplication componentize app -o output/multiply.wasm
+```
+
+The `-d` option tells `componentize-py` where to look for our WIT interfaces and `-w` tells it which WIT world to use. The `componentize` command takes the name of the Python module containing the app to wrap. In our case, we are targeting `app.py`.
+
+`componentize-py` bundles `CPython`, `libc` and other dependencies into the Wasm component to interpret and provide a Python environment for our code. Like JavaScript, this comes at a size and performance cost but is necessary to run Python code.
+
+We recommend reading the [Introducing Componentize-Py][introducing-componentize-py-blog] blog post for more information on writing Python sourced components.
+Also, the [Introducing Componentize-Py: A Tool for Packaging Python Apps as Components][introducing-componentize-py-video] is an excellent talk that explains how `componentize-py` works.
 
 ### IPFS
 
@@ -340,10 +378,13 @@ We will share more about Control Panel in a future post.
 [cargo-component]: https://github.com/bytecodealliance/cargo-component
 [cid]: https://docs.ipfs.tech/concepts/content-addressing/
 [componentize-js]: https://github.com/bytecodealliance/ComponentizeJS
+[componentize-py]: https://github.com/bytecodealliance/componentize-py
 [homestar-client]: https://www.npmjs.com/package/@fission-codes/homestar
 [everywhere-comp]: https://everywhere.computer/
 [install-every-cli]: https://www.npmjs.com/package/@everywhere-computer/every-cli
 [install-ipfs]: https://docs.ipfs.tech/install/command-line/#install-official-binary-distributions
+[introducing-componentize-py-blog]: https://www.fermyon.com/blog/introducing-componentize-py
+[introducing-componentize-py-video]: https://www.youtube.com/watch?v=PkAO17lmqsI
 [javascript-webassembly-post]: https://bytecodealliance.org/articles/making-javascript-run-fast-on-webassembly
 [ipvm]: https://fission.codes/ecosystem/ipvm/
 [wit-guest]: https://github.com/bytecodealliance/wit-bindgen?tab=readme-ov-file#supported-guest-languages
