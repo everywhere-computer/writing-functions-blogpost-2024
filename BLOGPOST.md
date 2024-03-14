@@ -1,7 +1,6 @@
 [Everywhere Computer][everywhere-comp] is a compute platform for [InterPlanetary Virtual Machine (IPVM)][ipvm] workflows. The Homestar runtime implements IPVM and runs compute in the Everywhere Computer.
 
-Homestar runs Wasm-based [workflows][workflows] where Wasm components provide functions to execute. Wasm components can be authored in [various languages][wit-guest][^1], but we'll focus primarily on Rust, JavaScript, and Python for this post. Reading ahead, we'll be writing functions in each of these languages, compiling them to Wasm, packaging them as [Wasm components][wasm-component], and bringing them together into a workflow that will
-be executed on our computer platform.
+Homestar runs Wasm-based [workflows][workflows] where Wasm components provide functions to execute. Wasm components can be authored in [various languages][wit-guest][^1], but we'll focus primarily on Rust, JavaScript, and Python for this post. Reading ahead, we'll be writing functions in each of these languages, compiling them to Wasm, packaging them as [Wasm components][wasm-component], and bringing them together into a workflow that will be executed on our compute platform.
 
 Our goal is to introduce authoring functions for Everywhere Computer. Along the way, we'll introduce Wasm component tooling, the Homestar runtime, and Every CLI which composes Homestar and a gateway for managing Wasm components and preparing workflows.
 
@@ -33,7 +32,7 @@ We will write arithmetic operations in each language to keep our example code si
 
 Our Rust program will perform addition and division; the JavaScript one will perform subtraction; and, the Python program will carry out multiplication.
 
-Our functions will be compiled to Wasm components using tools from or built upon the excellent work from the [Bytecode Alliance][bytecode-alliance]. The Wasm component ecosystem is evolving quickly, so keep in mind that the techniques described in this blog post may be out of date already. We'll provide links so you can check on the latest developments.
+Our functions will be compiled to Wasm components using tools from or built upon the excellent work from the [Bytecode Alliance][bytecode-alliance]. The Wasm component ecosystem is evolving quickly, so keep in mind that the techniques described in this blog post may be out of date. We'll provide links so you can check on the latest developments.
 
 #### Rust
 
