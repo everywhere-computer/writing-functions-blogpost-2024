@@ -60,7 +60,7 @@ Around 15 minutes, ships CPython, libc and more
 Homestar and Everywhere Computer use IPFS as a storage layer. Before we start into the next section, [install IPFS Kubo][install-ipfs] and start the IPFS daemon:
 
 ```sh
-ipfs dameon
+ipfs daemon
 ```
 
 The daemon should run on the default `5001` port.
