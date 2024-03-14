@@ -42,10 +42,38 @@ Our functions will be compiled to Wasm components using tools from or is built u
 
 #### JavaScript
 
-- Why Wasm components so big? Explain Spidermonkey
-- Why is it so slow? Explain Spidermonkey
-- Details...
-- https://www.youtube.com/watch?v=ChBGAZRU1qs
+For JavaScript, we use [Homestar Wasmify][homestar-client] to generate a Wasm component. Wasmify is our project to infer WIT types from TypeScript and include WASI dependencies automatically. This project is quite new and only implements a subset of TypeScript types. Also, Wasmify is a bit of a placeholder name that we may replace.
+
+Our TypeScript source code subtracts two numbers and logs the operation:
+
+```typescript
+import { log } from "wasi:logging/logging";
+
+export function subtract(a: number, b: number): number {
+  const result = a - b;
+
+  log("info", "guest:javascript:subtract", `${a} - ${b} = ${result}`);
+
+  return result;
+}
+```
+
+Building a Wasm component from this source code calls Wasmify `build`:
+
+```javascript
+import { build } from "@fission-codes/homestar/wasmify";
+
+await build({
+  entryPoint: "src/subtract.ts",
+  outDir: "output",
+});
+```
+
+Running this script will produce a Wasm component with a `subtract` name prefix and a hash, for example `subtract-j54di3rspj2eewjro4.wasm`.
+
+Wasmify is built on top of [ComponentizeJS][componentize-js] which ingests JavaScript source code and embeds SpiderMonkey in a Wasm component to run it. Embedding SpiderMonkey and running JavaScript code comes at a size and perfomance cost compared to languages that can compile to WebAssembly directly, but it is necessary to provide a JavaScript environment.
+
+See [Making JavaScript run fast on WebAssembly][javascript-webassembly-post] for more information.
 
 #### Python
 
@@ -227,5 +255,8 @@ You may have noticed `every-cli` starts a Control Panel:
 We have a web UI in progress that we will discuss in a future post.
 
 [bytecode-alliance]: https://bytecodealliance.org/
+[componentize-js]: https://github.com/bytecodealliance/ComponentizeJS
+[homestar-client]: https://www.npmjs.com/package/@fission-codes/homestar
 [install-every-cli]: https://www.npmjs.com/package/@everywhere-computer/every-cli
 [install-ipfs]: https://docs.ipfs.tech/install/command-line/#install-official-binary-distributions
+[javascript-webassembly-post]: https://bytecodealliance.org/articles/making-javascript-run-fast-on-webassembly
