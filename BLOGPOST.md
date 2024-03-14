@@ -1,6 +1,6 @@
-Everywhere Computer is a compute platform for InterPlanetary Virtual Machine (IPVM) workflows. The Homestar runtime implements IPVM and runs compute in the Everywhere Computer.
+[Everywhere Computer][everywhere-comp] is a compute platform for [InterPlanetary Virtual Machine (IPVM)][ipvm] workflows. The Homestar runtime implements IPVM and runs compute in the Everywhere Computer.
 
-Homestar runs Wasm-based workflows where Wasm components provide functions to execute. Wasm components can be authored in Rust, JavaScript, and Python. Reading ahead, we'll be writing functions in each of these languages, compiling them to Wasm, packaging them as Wasm components, and bringing them together into a workflow.
+Homestar runs Wasm-based [workflows][workflows] where Wasm components provide functions to execute. Wasm components can be authored in [various languages][wit-guest][^1], but we'll focus primarily on Rust, JavaScript, and Python for this post. Reading ahead, we'll be writing functions in each of these languages, compiling them to Wasm, packaging them as [Wasm components][wasm-component], and bringing them together into a workflow that will be executed on our compute platform.
 
 Our goal is to introduce authoring functions for Everywhere Computer. Along the way, we'll introduce Wasm component tooling, the Homestar runtime, and Every CLI which composes Homestar and a gateway for managing Wasm components and preparing workflows.
 
@@ -28,11 +28,11 @@ Our goal is to introduce authoring functions for Everywhere Computer. Along the 
 
 ### Our functions
 
-We will write arithmetic operations in each language to keep our example code simple. We will use division to show division by zero error reporting.
+We will write arithmetic operations in each language to keep our example code simple and straightforward. We will use division to show division by zero error reporting.
 
-Rust will perform addition and division, JavaScript will perform subtraction, and Python multiplication.
+Our Rust program will perform addition and division; the JavaScript one will perform subtraction; and, the Python program will carry out multiplication.
 
-Our functions will be compiled to Wasm components using tools from or is built upon the excellent projects from the [Bytecode Alliance][bytecode-alliance]. The Wasm component ecosystem is evolving quickly, so keep in mind that the techniques described in this blog post may be out of date. We'll provide links so you can check on the latest developments.
+Our functions will be compiled to Wasm components using tools from or built upon the excellent work from the [Bytecode Alliance][bytecode-alliance]. The Wasm component ecosystem is evolving quickly, so keep in mind that the techniques described in this blog post may be out of date. We'll provide links so you can check on the latest developments.
 
 #### Rust
 
@@ -85,7 +85,7 @@ Around 15 minutes, ships CPython, libc and more
 
 ### IPFS
 
-Homestar and Everywhere Computer use IPFS as a storage layer. Before we start into the next section, [install IPFS Kubo][install-ipfs] and start the IPFS daemon:
+Homestar and Everywhere Computer currently uses IPFS as a storage layer. Before we start into the next section, [install IPFS Kubo][install-ipfs] and start the IPFS daemon:
 
 ```sh
 ipfs daemon
@@ -95,11 +95,11 @@ The daemon should run on the default `5001` port.
 
 ### Workflows
 
-We now have a set of Wasm components with arithmetic functions sourced from multiple languages. Our next step is to run these functions in workflows.
+We now have a set of Wasm components with arithmetic functions sourced from multiple languages. Our next step is to run these functions in [workflows][workflows].
 
-Every CLI starts a gateway that loads Wasm components, prepares workflows, and calls on the Homestar runtime to run them. [Install Every CLI][install-every-cli], then we'll write a workflow.
+Every CLI starts a gateway that loads Wasm components, prepares workflows, and calls on the Homestar runtime to schedule and execute them. [Install Every CLI][install-every-cli], then we'll write a workflow.
 
-The workflows that Homestar runs are a bit challenging to write by hand, so Every CLI provides a simplfied workflow syntax that it uses to prepare the underlying workflow. Let's start by using `math.wasm` to add two numbers:
+The workflows that Homestar runs are a bit challenging to write by hand directly, so Every CLI provides a simplfied workflow syntax that it uses to prepare the underlying workflow. Let's start by using `math.wasm` to add two numbers:
 
 ```json
 {
@@ -141,7 +141,7 @@ In addition, Every CLI has passed along logs from the Homestar runtime:
 
 The logs report information about workflow execution and include our WASI logs. Our WASI log reports `"3.1 + 5.2 = 8.3"` with the category `guest:rust:add`. WASI logs always have the `wasm_execution` subject.
 
-We can also see workflow settings, fetching resources (our Wasm components), intializing, starting, and completing the workflow. The resolving receipts log shows that Homestar is looking for cached results so it can avoid work where possible. The computed receipt log reports the CID of the receipt from the add computation. Every CLI returns the workflow result, but the computed receipts can be also used to pull results directly from IPFS by CID.
+We can also see workflow settings, fetching resources (our Wasm components), intializing, starting, and completing the workflow. The resolving receipts log shows that Homestar is looking for cached results so it can avoid work where possible. The computed receipt log reports the [CID][cid], a content identifier derived on the content's cryptographic hash and which points to material on IPFS, of the receipt from the add computation. Every CLI returns the workflow result, but the computed receipts can be also used to pull results directly from IPFS by CID.
 
 If we post the workflow to the gateway again, we see a different set of logs:
 
@@ -254,9 +254,17 @@ You may have noticed `every-cli` starts a Control Panel:
 
 We have a web UI in progress that we will discuss in a future post.
 
+[^1]: Other supported languages include C/C++, Java (TeaVM Java), Go (TinyGo), and C#
+
 [bytecode-alliance]: https://bytecodealliance.org/
+[cid]: https://docs.ipfs.tech/concepts/content-addressing/
 [componentize-js]: https://github.com/bytecodealliance/ComponentizeJS
 [homestar-client]: https://www.npmjs.com/package/@fission-codes/homestar
+[everywhere-comp]: https://everywhere.computer/
 [install-every-cli]: https://www.npmjs.com/package/@everywhere-computer/every-cli
 [install-ipfs]: https://docs.ipfs.tech/install/command-line/#install-official-binary-distributions
 [javascript-webassembly-post]: https://bytecodealliance.org/articles/making-javascript-run-fast-on-webassembly
+[ipvm]: https://fission.codes/ecosystem/ipvm/
+[wit-guest]: https://github.com/bytecodealliance/wit-bindgen?tab=readme-ov-file#supported-guest-languages
+[wasm-component]: https://component-model.bytecodealliance.org/
+[workflows]: https://aws.amazon.com/what-is/workflow/
