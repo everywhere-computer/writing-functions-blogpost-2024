@@ -28,9 +28,11 @@ Our goal is to introduce authoring functions for Everywhere Computer. Along the 
 
 ### Our functions
 
-We will write arithmetic operations in each language to keep our example code simple. However, we are daring enough to include division to introduce division by zero errors and floating point numbers.
+We will write arithmetic operations in each language to keep our example code simple. We will use division to show division by zero error reporting.
 
 Rust will perform addition and division, JavaScript will perform subtraction, and Python multiplication.
+
+Our functions will be compiled to Wasm components using tools from or is built upon the excellent projects from the [Bytecode Alliance][bytecode-alliance]. The Wasm component ecosystem is evolving quickly, so keep in mind that the techniques described in this blog post may be out of date. We'll provide links so you can check on the latest developments.
 
 #### Rust
 
@@ -43,8 +45,13 @@ Rust will perform addition and division, JavaScript will perform subtraction, an
 - Why Wasm components so big? Explain Spidermonkey
 - Why is it so slow? Explain Spidermonkey
 - Details...
+- https://www.youtube.com/watch?v=ChBGAZRU1qs
 
 #### Python
+
+https://www.youtube.com/watch?v=PkAO17lmqsI
+
+Around 15 minutes, ships CPython, libc and more
 
 - Words...
 
@@ -112,7 +119,7 @@ If we post the workflow to the gateway again, we see a different set of logs:
 
 ![add-replay-logs](assets/add-replay.png)
 
-This time we don't need to do any work. Homestar cached the receipts from our last run, and reports that it is replaying the workflow and its receipts. 
+This time we don't need to do any work. Homestar cached the receipts from our last run, and reports that it is replaying the workflow and its receipts.
 
 Notice also that our WASI log does not show up. WASI logs only happen on execution, not replay. We'll see in a moment how we can force re-execution to always see WASI logs.
 
@@ -160,6 +167,8 @@ Let's try a workflow that uses all four arithmetic operations from our Rust, Jav
   ]
 }
 ```
+
+In this workflow, each task except the first receives an input from the previous task. For example, `subtract` awaits the output of `add` by using `"{{needs.add.output}}"` as a placeholder that will be filled in when `add` has completed.
 
 Restart Every CLI, passing in all of our Wasm components:
 
@@ -217,5 +226,6 @@ You may have noticed `every-cli` starts a Control Panel:
 
 We have a web UI in progress that we will discuss in a future post.
 
+[bytecode-alliance]: https://bytecodealliance.org/
 [install-every-cli]: https://www.npmjs.com/package/@everywhere-computer/every-cli
 [install-ipfs]: https://docs.ipfs.tech/install/command-line/#install-official-binary-distributions
