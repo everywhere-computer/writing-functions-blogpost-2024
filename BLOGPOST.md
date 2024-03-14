@@ -36,9 +36,89 @@ Our functions will be compiled to Wasm components using tools from or built upon
 
 #### Rust
 
-- Explain cargo component
-- Show testing functions with wasmtime
-- Details...
+For Rust, we use [`cargo component`][cargo-component] to generate a Wasm component. `cargo component` imagines what first-class support for WebAssembly components might look like for Rust.
+
+Rust support includes referencing WIT dependencies in the Cargo manifest. We reference WASI logging in our manifest:
+
+```toml
+[package.metadata.component.target.dependencies]
+"wasi:logging" = { path = "../wit/deps/logging" }
+```
+
+We set our target WIT world in the manifest as well:
+
+```toml
+[package.metadata.component.target]
+path = "../wit/math.wit"
+world = "math"
+```
+
+Our WIT interface defines `add` and `divide` functions:
+
+```
+package fission:math@0.1.0;
+
+world math {
+  import wasi:logging/logging;
+
+  export add: func(a: float64, b: float64) -> float64;
+  export divide: func(a: float64, b: float64) -> float64;
+}
+```
+
+`cargo component` generates a set of bindings that produce a `Guest` trait that requires us to implement the interfaces from our WIT world. It also provides an interface for the WASI logging dependency.
+
+Our Rust source code implements `add` and `divide` with logging for each operation and error reporting when division by zero would occur.
+
+```rust
+#[allow(warnings)]
+mod bindings;
+
+use bindings::wasi::logging::logging::{log, Level};
+use bindings::Guest;
+
+struct Component;
+
+impl Guest for Component {
+    fn add(a: f64, b: f64) -> f64 {
+        let result = a + b;
+
+        log(
+            Level::Info,
+            "guest:rust:add",
+            format!("{a} + {b} = {result}").as_str(),
+        );
+
+        result
+    }
+
+    fn divide(a: f64, b: f64) -> f64 {
+        if b == 0.0 {
+            log(
+                Level::Error,
+                "guest:rust:divide",
+                format!("Division by zero error").as_str(),
+            );
+
+            panic!()
+        }
+
+        let result = a / b;
+
+        log(
+            Level::Info,
+            "guest:rust:divide",
+            format!("{a} / {b} = {result}").as_str(),
+        );
+
+        result
+    }
+}
+
+bindings::export!(Component with_types_in bindings);
+```
+
+`cargo component build` generates the necessary bindings and outputs a `math.wasm` component to the `target/wasm32-wasi/debug` directory. A `cargo component build --release` build outputs to `target/wasm32-wasi/release`.
 
 #### JavaScript
 
@@ -252,11 +332,12 @@ You may have noticed `every-cli` starts a Control Panel:
 
 ![control-panel](assets/control-panel.png)
 
-We have a web UI in progress that we will discuss in a future post.
+We will share more about Control Panel in a future post.
 
 [^1]: Other supported languages include C/C++, Java (TeaVM Java), Go (TinyGo), and C#
 
 [bytecode-alliance]: https://bytecodealliance.org/
+[cargo-component]: https://github.com/bytecodealliance/cargo-component
 [cid]: https://docs.ipfs.tech/concepts/content-addressing/
 [componentize-js]: https://github.com/bytecodealliance/ComponentizeJS
 [homestar-client]: https://www.npmjs.com/package/@fission-codes/homestar
