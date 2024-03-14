@@ -1,5 +1,5 @@
-import multiplication
-from multiplication.imports.logging import (log, Level)
+import multiplication # type: ignore
+from multiplication.imports.logging import (log, Level) # type: ignore
 
 class Multiplication(multiplication.Multiplication):
     def multiply(self, a, b) -> float:
