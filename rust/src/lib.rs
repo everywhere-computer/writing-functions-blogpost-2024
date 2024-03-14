@@ -1,7 +1,6 @@
 #[allow(warnings)]
 mod bindings;
 
-#[cfg(target_arch = "wasm32")]
 use bindings::wasi::logging::logging::{log, Level};
 use bindings::Guest;
 
@@ -11,7 +10,6 @@ impl Guest for Component {
     fn add(a: f64, b: f64) -> f64 {
         let result = a + b;
 
-        #[cfg(target_arch = "wasm32")]
         log(
             Level::Info,
             "guest:rust:add",
@@ -23,7 +21,6 @@ impl Guest for Component {
 
     fn divide(a: f64, b: f64) -> f64 {
         if b == 0.0 {
-            #[cfg(target_arch = "wasm32")]
             log(
                 Level::Error,
                 "guest:rust:divide",
@@ -35,7 +32,6 @@ impl Guest for Component {
 
         let result = a / b;
 
-        #[cfg(target_arch = "wasm32")]
         log(
             Level::Info,
             "guest:rust:divide",
