@@ -1,8 +1,12 @@
-[Everywhere Computer][everywhere-comp] is a compute platform for [InterPlanetary Virtual Machine (IPVM)][ipvm] workflows. The Homestar runtime implements IPVM and runs compute in the Everywhere Computer.
+# Authoring Functions for Everywhere Computer
 
-Homestar runs Wasm-based [workflows][workflows] where Wasm components provide functions to execute. Wasm components can be authored in [various languages][wit-guest][^1], but we'll focus primarily on Rust, JavaScript, and Python for this post. Reading ahead, we'll be writing functions in each of these languages, compiling them to Wasm, packaging them as [Wasm components][wasm-component], and bringing them together into a workflow that will be executed on our compute platform.
+[Everywhere Computer][everywhere-comp] is an emerging decentralized platform aiming to distribute computational tasks across a vast, open network. This network spans from your personal machine to other devices on your LAN, a cluster of cloud nodes, and even to the very edge of the Internet, ensuring that processing either happens as close to the data source as possible or by relocating data or adjusting how computations are run based on the necessity of certain critical resources and/or the demand for general availability. At its core, Everywhere Computer is built atop the [InterPlanetary Virtual Machine (IPVM)][ipvm] protocol, operating as [workflows][workflows] containing tasks that are [content-addressed][content-addressing]—meaning they're uniquely identified by their content rather than by their location. This system is powered by our [Homestar runtime][homestar-runtime], an engine that runs Wasm-oriented workflows composed of [Wasm components][wasm-component] with runnable functions that can be scheduled and executed on any Homestar peer connected throughout the network.
 
-Our goal is to introduce authoring functions for Everywhere Computer. Along the way, we'll introduce Wasm component tooling, the Homestar runtime, and Every CLI which composes Homestar and a gateway for managing Wasm components and preparing workflows.
+*TODO: Diagram Here*
+
+Beyond the sandboxing, portability, and predictable performance benefits of Wasm, we're excited about orchestrating workflows and state machines composed of modules compiled from different orginating languages. With Everywhere Computer, we're all in on "[the return of write once, run anywhere][write-once-run]", so much so that combined with content-addressing and our focus on replayability of previously computed tasks, we're touting "**write once, run once, and then never again, everywhere**."
+
+With this post, our goal is to introduce authoring Wasm components and, therefore, functions for Everywhere Computer. Wasm components can be authored in [various languages][wit-guest][^1], but we'll focus primarily on Rust, JavaScript, and Python for this post. Reading ahead, we'll be writing functions in each of these languages, compiling them to Wasm, packaging them as Wasm components, and bringing them together into a workflow that executes on our compute platform. Along the way, we'll introduce Wasm component tooling, the Homestar runtime, and [Every CLI][everycli], the latter of which provides a convenient interface for running Homestar with a gateway for  preparing and executing workflows.
 
 ### Wasm components, WIT, and WASI logging
 
@@ -379,14 +383,18 @@ We will share more about Control Panel in a future post.
 [cid]: https://docs.ipfs.tech/concepts/content-addressing/
 [componentize-js]: https://github.com/bytecodealliance/ComponentizeJS
 [componentize-py]: https://github.com/bytecodealliance/componentize-py
+[content-addressing]: https://en.wikipedia.org/wiki/Content-addressable_storage
 [homestar-client]: https://www.npmjs.com/package/@fission-codes/homestar
+[everycli]: https://docs.everywhere.computer/everycli/
 [everywhere-comp]: https://everywhere.computer/
+[homestar-runtime]: https://github.com/ipvm-wg/homestar/blob/main/README.md
 [install-every-cli]: https://www.npmjs.com/package/@everywhere-computer/every-cli
 [install-ipfs]: https://docs.ipfs.tech/install/command-line/#install-official-binary-distributions
 [introducing-componentize-py-blog]: https://www.fermyon.com/blog/introducing-componentize-py
 [introducing-componentize-py-video]: https://www.youtube.com/watch?v=PkAO17lmqsI
 [javascript-webassembly-post]: https://bytecodealliance.org/articles/making-javascript-run-fast-on-webassembly
 [ipvm]: https://fission.codes/ecosystem/ipvm/
-[wit-guest]: https://github.com/bytecodealliance/wit-bindgen?tab=readme-ov-file#supported-guest-languages
 [wasm-component]: https://component-model.bytecodealliance.org/
+[wit-guest]: https://github.com/bytecodealliance/wit-bindgen?tab=readme-ov-file#supported-guest-languages
 [workflows]: https://aws.amazon.com/what-is/workflow/
+[write-once-run]: https://youtu.be/dhoVlVu2XAw?si=x1YIQk-9Jkg_FphP
