@@ -1,12 +1,16 @@
-# Authoring Functions for Everywhere Computer
+# Writing Functions for Everywhere Computer
 
-[Everywhere Computer][everywhere-comp] is an emerging decentralized platform aiming to distribute computational tasks across a vast, open network. This network spans from your personal machine to other devices on your LAN, a cluster of cloud nodes, and even to a [PoP (point of presence)][pop] at the edge of the Internet, ensuring that processing either happens as close to the data source as possible or by relocating data or adjusting how computations are run based on the necessity of certain critical resources and/or the demand for general availability. At its core, Everywhere Computer is built atop the [InterPlanetary Virtual Machine (IPVM)][ipvm] protocol, operating as [workflows][workflows] containing tasks that are [content-addressed][content-addressing]—meaning they're uniquely identified by their content rather than by their location. This system is powered by our [Homestar runtime][homestar-runtime], an engine that runs Wasm-oriented workflows composed of [Wasm components][wasm-component] with runnable functions that can be scheduled and executed on any Homestar peer connected throughout the network.
+[Everywhere Computer][everywhere-comp] is an emerging decentralized platform that aims to distribute computational tasks across a vast, open network. This network spans from your personal machine to other devices on your LAN, a cluster of cloud nodes, and even to a [PoP (point of presence)][pop] at the edge of the Internet. Processing happens as close to the data source as possible or on machines with general availability or critical resources where relocating data is worthwhile.
+
+At its core, Everywhere Computer is built on the [InterPlanetary Virtual Machine (IPVM)][ipvm] protocol. It executes [workflows][workflows] containing tasks that are [content-addressed][content-addressing]—which means they're uniquely identified by their content rather than by their location. This system is powered by our [Homestar runtime][homestar-runtime], an engine that runs Wasm-based workflows composed of [Wasm components][wasm-component] with runnable functions that can be scheduled and executed by any Homestar peer throughout the network.
 
 ![everywhere-at-a-glance](./assets/blogcompute.png)
 
-Beyond the sandboxing, portability, and predictable performance benefits of Wasm, we're excited about orchestrating workflows and state machines composed of modules compiled from different orginating languages. With Everywhere Computer, we're all in on "[the return of write once, run anywhere][write-once-run]", so much so that combined with content-addressing and our focus on replayability of previously computed tasks, we're touting "**write once, run once, and then never again, everywhere**."
+Beyond the sandboxing, portability, and predictable performance benefits of Wasm, we're excited about orchestrating workflows and state machines composed of modules compiled from different source languages. With Everywhere Computer, we're all in on "[the return of write once, run anywhere][write-once-run]", but with content-addressing and our focus on replayability of previously computed tasks, we can go a step further and say "**write once, run once, and then never again, everywhere**."
 
 With this post, our goal is to introduce authoring Wasm components and, therefore, functions for Everywhere Computer. Wasm components can be authored in [various languages][wit-guest][^1], but we'll focus primarily on Rust, JavaScript, and Python for this post. Reading ahead, we'll be writing functions in each of these languages, compiling them to Wasm, packaging them as Wasm components, and bringing them together into a workflow that executes on our compute platform. Along the way, we'll introduce Wasm component tooling, the Homestar runtime, and [Every CLI][everycli], the latter of which provides a convenient interface for running Homestar with a gateway for preparing and executing workflows.
+
+The code covered in this post is available in the [writing-functions-blogpost-2024][writing-functions-repo] repository.
 
 ### Wasm components, WIT, and WASI logging
 
@@ -399,3 +403,4 @@ We will share more about Control Panel in a future post.
 [wit-guest]: https://github.com/bytecodealliance/wit-bindgen?tab=readme-ov-file#supported-guest-languages
 [workflows]: https://aws.amazon.com/what-is/workflow/
 [write-once-run]: https://youtu.be/dhoVlVu2XAw?si=x1YIQk-9Jkg_FphP
+[writing-functions-repo]: https://github.com/everywhere-computer/writing-functions-blogpost-2024
