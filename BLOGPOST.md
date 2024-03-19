@@ -1,6 +1,6 @@
 # Writing Functions for Everywhere Computer
 
-[Everywhere Computer][everywhere-comp] is an emerging decentralized platform that aims to distribute computational tasks across a vast, open network. This network spans from your personal machine to other devices on your LAN, a cluster of cloud nodes, and even to a [PoP (point of presence)][pop] at the edge of the Internet. Processing happens as close to the data source as possible or on machines with general availability or critical resources where relocating data is worthwhile.
+[Everywhere Computer][everywhere-comp] is an emerging decentralized platform that aims to distribute computational tasks across a vast, open network. This network spans from your personal machine to other devices on your LAN, a cluster of cloud nodes, and even to [PoPs (point of presences)][pop] located at the edge of the Internet. Processing happens as close to the data source as possible or on machines with general availability or critical resources where relocating data is worthwhile.
 
 At its core, Everywhere Computer is built on the [InterPlanetary Virtual Machine (IPVM)][ipvm] protocol. It executes [workflows][workflows] containing tasks that are [content-addressed][content-addressing]—which means they're uniquely identified by their content rather than by their location. This system is powered by our [Homestar runtime][homestar-runtime], an engine that runs Wasm-based workflows composed of [Wasm components][wasm-component] with runnable functions that can be scheduled and executed by any Homestar peer throughout the network.
 
@@ -14,25 +14,35 @@ The code covered in this post is available in the [writing-functions-blogpost-20
 
 ### Wasm components, WIT, and WASI logging
 
-#### Wasm Components
+Evolution within the Wasm ecosystem is happening at a wicked pace, particularly now that the [path to Wasm components][path-to-components] has been streamlined and standardized, making module-to-module interop a rather trivial endeavor. In building Everywhere Computer, we wanted to leverage the [Canonical ABI][canonical-abi] for converting between the values and functions of components in the Component Model with those of modules in [Core WebAssembly][core-wasm] instead of imposing a custom ABI upon our users. Essentially, a component is just a wrapper around a core module that specifies its imports, internal definitions, and exports using interfaces defined by an IDL format called [Wit][wit]. Unlike core modules, however, components may not have export Wasm memory, which reinforces sandboxing and enables interoperation between languages with different memory assumptions. For example, a component that relies on Wasm-GC (garbage collected) memory compiled from a dynamic language can seamlessly interact with a standard component using linear memory compiled from a static language.
 
-- Why?
-- Bytecodealliance work on components
-- We'll use their tooling for writing components
-- We also use their Wasmtime in Homestar!
+Everywhere Computer strives for [simplicity][simple-made-easy]. By standardizing on the Component model and it's tooling (e.g. [cargo-component][cargo-component], [wit-bindgen][wit-bindgen]), we're able to run workflows combining components from different languages without needing to handle incomplete Wasm modules, maintain a growing set of SDKs, or introduce custom tooling tailored to our specific ecosystem. As another example, our Homestar runtime utilizes alternate formats as internal [intermediate representations][ir]. Standardizing on Wit allows us to [interpret][wit-to-ipld] between Wit values and other data models at runtime without function writers having to know anything about what our internal format(s) are.
 
-#### WIT
+#### Embedding Wasmtime
 
-- Describe Wasm component interfaces
-- Consistent interface implemented by our source languages
-- Has it's own type system
+#### Wit
 
-#### WASI logging
+#### WASI Logging
 
-- Introduce WASI
-- Homestar acts as a host that implements WASI logging
-- Our functions log messages that are displayed by Homestar
-- Can use for logging information or reporting errors
+<!-- #### Wasm Components -->
+
+<!-- - Why? -->
+<!-- - Bytecodealliance work on components -->
+<!-- - We'll use their tooling for writing components -->
+<!-- - We also use their Wasmtime in Homestar! -->
+
+<!-- #### WIT -->
+
+<!-- - Describe Wasm component interfaces -->
+<!-- - Consistent interface implemented by our source languages -->
+<!-- - Has it's own type system -->
+
+<!-- #### WASI logging -->
+
+<!-- - Introduce WASI -->
+<!-- - Homestar acts as a host that implements WASI logging -->
+<!-- - Our functions log messages that are displayed by Homestar -->
+<!-- - Can use for logging information or reporting errors -->
 
 ### Our functions
 
@@ -380,14 +390,22 @@ You may have noticed `every-cli` starts a Control Panel:
 
 We will share more about Control Panel in a future post.
 
+### Conclusion
+
+#### Acknowledgements
+
+We'd like to offer our sincere thanks to
+
 [^1]: Other supported languages include C/C++, Java (TeaVM Java), Go (TinyGo), and C#
 
 [bytecode-alliance]: https://bytecodealliance.org/
+[canonical-abi]: https://github.com/WebAssembly/component-model/blob/main/design/mvp/CanonicalABI.md
 [cargo-component]: https://github.com/bytecodealliance/cargo-component
 [cid]: https://docs.ipfs.tech/concepts/content-addressing/
 [componentize-js]: https://github.com/bytecodealliance/ComponentizeJS
 [componentize-py]: https://github.com/bytecodealliance/componentize-py
 [content-addressing]: https://en.wikipedia.org/wiki/Content-addressable_storage
+[core-wasm]: https://webassembly.github.io/spec/core/
 [homestar-client]: https://www.npmjs.com/package/@fission-codes/homestar
 [everycli]: https://docs.everywhere.computer/everycli/
 [everywhere-comp]: https://everywhere.computer/
@@ -396,11 +414,17 @@ We will share more about Control Panel in a future post.
 [install-ipfs]: https://docs.ipfs.tech/install/command-line/#install-official-binary-distributions
 [introducing-componentize-py-blog]: https://www.fermyon.com/blog/introducing-componentize-py
 [introducing-componentize-py-video]: https://www.youtube.com/watch?v=PkAO17lmqsI
+[ir]: https://en.wikipedia.org/wiki/Intermediate_representation
 [javascript-webassembly-post]: https://bytecodealliance.org/articles/making-javascript-run-fast-on-webassembly
 [ipvm]: https://fission.codes/ecosystem/ipvm/
+[path-to-components]: https://youtu.be/phodPLY8zNE
 [pop]: https://en.wikipedia.org/wiki/Point_of_presence
+[simple-made-easy]: https://www.infoq.com/presentations/Simple-Made-Easy/
 [wasm-component]: https://component-model.bytecodealliance.org/
+[wit]: https://github.com/WebAssembly/component-model/blob/main/design/mvp/WIT.md
+[wit-bindgen]: https://github.com/bytecodealliance/wit-bindgen
 [wit-guest]: https://github.com/bytecodealliance/wit-bindgen?tab=readme-ov-file#supported-guest-languages
+[wit-to-ipld]: https://github.com/ipvm-wg/homestar/tree/main/homestar-wasm#interpreting-between-ipld-and-wit
 [workflows]: https://aws.amazon.com/what-is/workflow/
 [write-once-run]: https://youtu.be/dhoVlVu2XAw?si=x1YIQk-9Jkg_FphP
-[writing-functions-repo]: https://github.com/everywhere-computer/writing-functions-blogpost-2024
+[writing-functions-repo]: https://github.com/everywhere-computer/writing-functions-blogpost-20#
