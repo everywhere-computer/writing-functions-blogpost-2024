@@ -2,7 +2,7 @@
 
 [Everywhere Computer][everywhere-comp] is an emerging decentralized platform aiming to distribute computational tasks across a vast, open network. This network spans from your personal machine to other devices on your LAN, a cluster of cloud nodes, and even to the very edge of the Internet, ensuring that processing either happens as close to the data source as possible or by relocating data or adjusting how computations are run based on the necessity of certain critical resources and/or the demand for general availability. At its core, Everywhere Computer is built atop the [InterPlanetary Virtual Machine (IPVM)][ipvm] protocol, operating as [workflows][workflows] containing tasks that are [content-addressed][content-addressing]—meaning they're uniquely identified by their content rather than by their location. This system is powered by our [Homestar runtime][homestar-runtime], an engine that runs Wasm-oriented workflows composed of [Wasm components][wasm-component] with runnable functions that can be scheduled and executed on any Homestar peer connected throughout the network.
 
-*TODO: Diagram Here*
+![everywhere-at-a-glance](./assets/blogcompute.png)
 
 Beyond the sandboxing, portability, and predictable performance benefits of Wasm, we're excited about orchestrating workflows and state machines composed of modules compiled from different orginating languages. With Everywhere Computer, we're all in on "[the return of write once, run anywhere][write-once-run]", so much so that combined with content-addressing and our focus on replayability of previously computed tasks, we're touting "**write once, run once, and then never again, everywhere**."
 
