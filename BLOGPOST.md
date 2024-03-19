@@ -146,7 +146,9 @@ bindings::export!(Component with_types_in bindings);
 
 #### JavaScript
 
-For JavaScript, we use [Homestar Wasmify][homestar-client] to generate a Wasm component. Wasmify is our project to infer WIT types from TypeScript and include WASI dependencies automatically. This project is quite new and only implements a subset of TypeScript types. Also, Wasmify is a bit of a placeholder name that we may replace.
+For JavaScript, we use [Homestar Wasmify][homestar-client] to generate a Wasm component. Wasmify is our tool to generate Wasm components from JavaScript code. Wasmify generates Wasm components by bundling JavaScript code, generating WIT types from TypeScript code or JSDoc defined types, and embedding WASI dependencies. Keep in mind that Wasmify is in development and does not support all WIT defined types.
+
+To generate a Wasm component Wasmify will bundle the JS code, generate WIT types from TypeScript code or JSDoc defined types and embed WASI dependencies
 
 Our TypeScript source code subtracts two numbers and logs the operation:
 
@@ -239,7 +241,7 @@ The daemon should run on the default `5001` port.
 
 We now have a set of Wasm components with arithmetic functions sourced from multiple languages. Our next step is to run these functions in [workflows][workflows].
 
-Every CLI starts a gateway that loads Wasm components, prepares workflows, and calls on the Homestar runtime to schedule and execute them. [Install Every CLI][install-every-cli], then we'll write a workflow.
+Every CLI starts a gateway that loads Wasm components onto IPFS, prepares workflows, and calls on the Homestar runtime to schedule and execute them. [Install Every CLI][install-every-cli], then we'll write a workflow.
 
 The workflows that Homestar runs are a bit challenging to write by hand directly, so Every CLI provides a simplfied workflow syntax that it uses to prepare the underlying workflow. Let's start by using `math.wasm` to add two numbers:
 
@@ -388,9 +390,17 @@ On running this workflow, we see two errors:
 
 The first error is our WASI log reporting a "Division by zero error". The second error is an execution error from the Wasm runtime. It's a bit inscutable, but we can see "not able to run fn divide" which tells us which function failed.
 
+We've used default Homestar settings while running workflows, but these settings can be overriden with the `--config` option.
+
+```sh
+every dev --config settings.toml
+```
+
+See the [Homestar configuration docs][homestar-config] for commonly used settings.
+
 ### Everywhere Computer Control Panel
 
-You may have noticed `every-cli` starts a Control Panel:
+You may have noticed Every CLI starts a Control Panel:
 
 ![control-panel](assets/control-panel.png)
 
@@ -415,6 +425,7 @@ We'd like to offer our sincere thanks to
 [homestar-client]: https://www.npmjs.com/package/@fission-codes/homestar
 [everycli]: https://docs.everywhere.computer/everycli/
 [everywhere-comp]: https://everywhere.computer/
+[homestar-config]: https://docs.everywhere.computer/homestar/configuration/
 [homestar-runtime]: https://github.com/ipvm-wg/homestar/blob/main/README.md
 [install-every-cli]: https://www.npmjs.com/package/@everywhere-computer/every-cli
 [install-ipfs]: https://docs.ipfs.tech/install/command-line/#install-official-binary-distributions
