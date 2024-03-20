@@ -56,7 +56,7 @@ The Homestar runtime embeds the [Wasmtime][wasmtime] runtime to execute Wasm com
 
 ### Our functions
 
-We will write arithmetic operations in each language to keep our example code simple and straightforward. We will use division to show division by zero error reporting.
+We will write arithmetic operations in each source language to keep our example code simple and straightforward. We will use division to show division by zero error reporting.
 
 Our Rust program will perform addition and division; the JavaScript one will perform subtraction; and, the Python program will carry out multiplication.
 
@@ -150,9 +150,7 @@ bindings::export!(Component with_types_in bindings);
 
 #### JavaScript
 
-For JavaScript, we use [Homestar Wasmify][homestar-client] to generate a Wasm component. Wasmify is our tool to generate Wasm components from JavaScript code. Wasmify generates Wasm components by bundling JavaScript code, generating WIT types from TypeScript code or JSDoc defined types, and embedding WASI dependencies. Keep in mind that Wasmify is in development and does not support all WIT defined types.
-
-To generate a Wasm component Wasmify will bundle the JS code, generate WIT types from TypeScript code or JSDoc defined types and embed WASI dependencies
+For JavaScript, we use [Homestar Wasmify][homestar-client] to generate a Wasm component. Wasmify is our tool to generate Wasm components from JavaScript code. Wasmify generates Wasm components by bundling JavaScript code, generating WIT types from TypeScript code or JSDoc-defined types, and embedding WASI dependencies. Keep in mind that Wasmify is in development and does not support all WIT defined types.
 
 Our TypeScript source code subtracts two numbers and logs the operation:
 
@@ -239,7 +237,7 @@ Homestar and Everywhere Computer currently uses [IPFS][ipfs] as a storage layer.
 ipfs daemon
 ```
 
-The daemon should run on the default `5001` port.
+The daemon should start an RPC API on port `5001`.
 
 ### Workflows
 
@@ -289,7 +287,7 @@ In addition, Every CLI has passed along logs from the Homestar runtime:
 
 The logs report information about workflow execution and include our WASI logs. Our WASI log reports `"3.1 + 5.2 = 8.3"` with the category `guest:rust:add`. WASI logs always have the `wasm_execution` subject.
 
-We can also see workflow settings, fetching resources (our Wasm components), intializing, starting, and completing the workflow. The resolving receipts log shows that Homestar is looking for cached results so it can avoid work where possible. The computed receipt log reports the [CID][cid], a content identifier derived on the content's cryptographic hash and which points to material on IPFS, of the receipt from the add computation. Every CLI returns the workflow result, but the computed receipts can be also used to pull results directly from IPFS by CID.
+We can also see workflow settings, fetching resources (our Wasm components), intializing, starting, and completing the workflow. The "resolving receipts" log shows that Homestar is looking for cached results so it can avoid work where possible. The "computed receipt" log reports the [CID][cid], a content identifier derived from the content's cryptographic hash, of the receipt from the add computation. Every CLI returns the workflow result, but the computed receipts can be also used to pull results directly from IPFS by CID.
 
 If we post the workflow to the gateway again, we see a different set of logs:
 
@@ -297,7 +295,7 @@ If we post the workflow to the gateway again, we see a different set of logs:
 
 This time we don't need to do any work. Homestar cached the receipts from our last run, and reports that it is replaying the workflow and its receipts.
 
-Notice also that our WASI log does not show up. WASI logs only happen on execution, not replay. We'll see in a moment how we can force re-execution to always see WASI logs.
+Notice also that our WASI log does not show up. WASI logging only happens on execution, not replay. We'll see in a moment how we can force re-execution to always see WASI logs.
 
 Let's try a workflow that uses all four arithmetic operations from our Rust, JavaScript, and Python sourced components:
 
