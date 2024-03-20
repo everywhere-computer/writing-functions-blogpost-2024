@@ -28,7 +28,7 @@ In addition, our Homestar runtime utilizes alternate formats as internal [interm
 
 The Homestar runtime embeds the [Wasmtime][wasmtime] runtime to execute Wasm components associated with tasks in a workflow. The Wasmtime runtime is built and maintained by the [Bytecode Alliance][bytecode-alliance]. It provides multi-language support and fine-grained configuration for CPU and memory usage.
 
-Wasmtime is at the forefront of the Wasm ecosystem with their support of the WASI stack, which recently reached [WASI Preview 2][wasip2]. WASI gives library developers and implementers, like ourselves, lower level primitives with a stable set of common interfaces to build on.
+Wasmtime is at the forefront of the Wasm ecosystem which includes their support of the WASI stack, which recently reached [WASI Preview 2][wasip2]. WASI gives library developers and implementers, like ourselves, lower level primitives like files, sockets, and HTTP with a stable set of common interfaces to build on.
 
 We're in good company using Wasmtime. It has already been adopted by platforms and frameworks like [wasmCloud][wasmcloud], [Spin][fermyon-spin], and [Fastly Compute][fastly-compute].
 
