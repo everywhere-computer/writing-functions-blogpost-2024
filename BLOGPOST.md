@@ -400,15 +400,15 @@ every dev --config settings.toml
 
 See the [Homestar configuration docs][homestar-config] for commonly used settings.
 
-### Everywhere Computer Control Panel
+### Conclusion
 
-You may have noticed Every CLI starts a Control Panel:
+In this post, we have introduced Everywhere Computer and how you can write functions and workflows for it. This post should be enough to get you started writing your own functions.
+
+We have much more to share. For example, you may have noticed that Every CLI starts a Control Panel:
 
 ![control-panel](assets/control-panel.png)
 
-We will share more about Control Panel in a future post.
-
-### Conclusion
+We will write about Control Panel and other topics in future posts.
 
 #### Acknowledgements
 
