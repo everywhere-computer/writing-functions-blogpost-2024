@@ -30,6 +30,8 @@ The Homestar runtime embeds the [Wasmtime][wasmtime] runtime to execute Wasm com
 
 #### Wit
 
+As you will see in the following sections, we will use WIT interfaces to define the types for our functions and a [world][wit-world] to describe the imports and exports associated with each Wasm component. Then, we will implement the interfaces in the source languages mentioned already. WIT provides built-in types, including primitives like signed/unsigned integer types, floats, strings, as well as more interesting and complex types like results, options, and lists. WIT also provides a way to define custom, user-defined types like records, variants, and enums. Homestar supports all of these WIT types internally (except [resources][wit-resources], which we restrict for guest code) when translating between other formats and data structures.
+
 #### WASI Logging
 
 <!-- #### Wasm Components -->
@@ -450,6 +452,8 @@ We'd like to offer our sincere thanks to
 [wit-bindgen]: https://github.com/bytecodealliance/wit-bindgen
 [wit-guest]: https://github.com/bytecodealliance/wit-bindgen?tab=readme-ov-file#supported-guest-languages
 [wit-to-ipld]: https://github.com/ipvm-wg/homestar/tree/main/homestar-wasm#interpreting-between-ipld-and-wit
+[wit-resources]: https://component-model.bytecodealliance.org/design/wit.html#resources
+[wit-world]: https://component-model.bytecodealliance.org/design/wit.html#worlds
 [workflows]: https://aws.amazon.com/what-is/workflow/
 [write-once-run]: https://youtu.be/dhoVlVu2XAw?si=x1YIQk-9Jkg_FphP
 [writing-functions-repo]: https://github.com/everywhere-computer/writing-functions-blogpost-20#
