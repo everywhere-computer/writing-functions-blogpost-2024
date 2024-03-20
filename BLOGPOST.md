@@ -26,7 +26,7 @@ In addition, our Homestar runtime utilizes alternate formats as internal [interm
 
 #### Embedding Wasmtime
 
-The Homestar runtime embeds the [Wasmtime][wasmtime] runtime to execute Wasm components (outside of the web) associated with tasks in a workflow. Built and maintained by the [Bytecode Alliance][bytecode-alliance], the Wasmtime runtime delivers on driving multi-language support and fine-grained configuration for things like CPU and memory usage. With platforms and frameworks like [wasmCloud][wasmcloud], [Spin][fermyon-spin], and [Fastly Compute][fastly-compute] all integrating with Wasmtime for their endeavors, we're in good company. Plus, we need a runtime that's at the forefront of the latest developments in the Wasm ecosystem, including the WASI stack, which recently reached [WASI Preview 2][wasip2], enabling library developers and implementers, like ourselves, the ability to work with and build upon lower level primitives from a stable set of common interfaces.
+The Homestar runtime embeds the [Wasmtime][wasmtime] runtime to execute Wasm components (outside of the web) associated with tasks in a workflow. Built and maintained by the [Bytecode Alliance][bytecode-alliance], the Wasmtime runtime delivers on driving multi-language support and fine-grained configuration for things like CPU and memory usage. With platforms and frameworks like [wasmCloud][wasmcloud], [Spin][fermyon-spin], and [Fastly Compute][fastly-compute] all integrating with Wasmtime for their endeavors, we're in good company. Plus, we needed a runtime that's at the forefront of the latest developments in the Wasm ecosystem, including the WASI stack, which recently reached [WASI Preview 2][wasip2], enabling library developers and implementers, like ourselves, the ability to work with and build upon lower level primitives from a stable set of common interfaces.
 
 #### Wit
 
@@ -443,6 +443,7 @@ We'd like to offer our sincere thanks to
 [simple-made-easy]: https://www.infoq.com/presentations/Simple-Made-Easy/
 [wasm-component]: https://component-model.bytecodealliance.org/
 [wasip2]: https://blog.sunfishcode.online/wasi-0-2/
+[wasmtime]: https://docs.wasmtime.dev/
 [wasmcloud]: https://wasmcloud.com/blog/wasmtime-a-standardized-runtime-for-wasmcloud
 [wit]: https://github.com/WebAssembly/component-model/blob/main/design/mvp/WIT.md
 [wit-bindgen]: https://github.com/bytecodealliance/wit-bindgen
