@@ -42,6 +42,8 @@ WIT provides built-in types, including primitives like signed/unsigned integer t
 
 #### WASI Logging
 
+To provide more detailed, localized information around reporting runtime execution errors and helpful workflow events, Every CLI exposes logs executed by guest programs atop the Homestar host runtime. As we'll demonstrate later in this post, by calling `log` in your guest code, Every CLI can then display these logs in a console at a certain level of verbosity and with contextual information. For emitting these log messages, the Homestar runtime implements the [WASI logging WIT proposed interface][wasi-logging], exposing the `log` function for function writers to integrate into their own programs, without having to worry about formatting and setup.
+
 <!-- #### Wasm Components -->
 
 <!-- - Why? -->
@@ -451,6 +453,7 @@ We'd like to offer our sincere thanks to
 [path-to-components]: https://youtu.be/phodPLY8zNE
 [pop]: https://en.wikipedia.org/wiki/Point_of_presence
 [simple-made-easy]: https://www.infoq.com/presentations/Simple-Made-Easy/
+[wasi-logging]: https://github.com/WebAssembly/wasi-logging/tree/main
 [wasm-component]: https://component-model.bytecodealliance.org/
 [wasip2]: https://blog.sunfishcode.online/wasi-0-2/
 [wasmtime]: https://docs.wasmtime.dev/
