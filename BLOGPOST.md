@@ -408,7 +408,7 @@ We have much more to share. For example, you may have noticed that Every CLI sta
 
 ![control-panel](assets/control-panel.png)
 
-We will write about Control Panel and other topics in future posts.
+We will write about Control Panel, offloading compute to other nodes in a network based on their capability or a scheduling policy, and working with non-determinism like network requests and persistent state in a workflow in future posts.
 
 #### Acknowledgements
 
