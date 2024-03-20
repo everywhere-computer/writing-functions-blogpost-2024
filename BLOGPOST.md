@@ -26,11 +26,17 @@ In addition, our Homestar runtime utilizes alternate formats as internal [interm
 
 #### Embedding Wasmtime
 
-The Homestar runtime embeds the [Wasmtime][wasmtime] runtime to execute Wasm components (outside of the web) associated with tasks in a workflow. Built and maintained by the [Bytecode Alliance][bytecode-alliance], the Wasmtime runtime delivers on driving multi-language support and fine-grained configuration for things like CPU and memory usage. With platforms and frameworks like [wasmCloud][wasmcloud], [Spin][fermyon-spin], and [Fastly Compute][fastly-compute] all integrating with Wasmtime for their endeavors, we're in good company. Plus, we needed a runtime that's at the forefront of the latest developments in the Wasm ecosystem, including the WASI stack, which recently reached [WASI Preview 2][wasip2], enabling library developers and implementers, like ourselves, the ability to work with and build upon lower level primitives from a stable set of common interfaces.
+The Homestar runtime embeds the [Wasmtime][wasmtime] runtime to execute Wasm components associated with tasks in a workflow. The Wasmtime runtime is built and maintained by the [Bytecode Alliance][bytecode-alliance]. It provides multi-language support and fine-grained configuration for CPU and memory usage.
 
-#### Wit
+Wasmtime is at the forefront of the Wasm ecosystem with their support of the WASI stack, which recently reached [WASI Preview 2][wasip2]. WASI gives library developers and implementers, like ourselves, lower level primitives with a stable set of common interfaces to build on.
 
-As you will see in the following sections, we will use WIT interfaces to define the types for our functions and a [world][wit-world] to describe the imports and exports associated with each Wasm component. Then, we will implement the interfaces in the source languages mentioned already. WIT provides built-in types, including primitives like signed/unsigned integer types, floats, strings, as well as more interesting and complex types like results, options, and lists. WIT also provides a way to define custom, user-defined types like records, variants, and enums. Homestar supports all of these WIT types internally (except [resources][wit-resources], which we restrict for guest code) when translating between other formats and data structures.
+We're in good company using Wasmtime. It has already been adopted by platforms and frameworks like [wasmCloud][wasmcloud], [Spin][fermyon-spin], and [Fastly Compute][fastly-compute].
+
+#### WIT
+
+In the following sections, we will use WIT interfaces to define the types for our functions and a [world][wit-world] to describe the imports and exports associated with each Wasm component. Then, we will implement the interfaces in Rust, JavaScript, and Python.
+
+WIT provides built-in types, including primitives like signed/unsigned integer types, floats, strings, and more interesting and complex types like results, options, and lists. WIT also provides a way to define custom, user-defined types like records, variants, and enums. Homestar supports all of these WIT types internally (except [resources][wit-resources], which we do not permit in guest code) when translating between other formats and data structures.
 
 #### WASI Logging
 
