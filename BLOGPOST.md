@@ -10,6 +10,8 @@ Beyond the sandboxing, portability, and predictable performance benefits of Wasm
 
 With this post, our goal is to introduce authoring Wasm components and, therefore, functions for Everywhere Computer. Wasm components can be authored in [various languages][wit-guest][^1], but we'll focus primarily on Rust, JavaScript, and Python for this post. Reading ahead, we'll be writing functions in each of these languages, compiling them to Wasm, packaging them as Wasm components, and bringing them together into a workflow that executes on our compute platform. Along the way, we'll introduce Wasm component tooling, the Homestar runtime, and [Every CLI][everycli], the latter of which provides a convenient interface for running Homestar with a gateway for preparing and executing workflows.
 
+Everywhere Computer is in beta. Everything is publicly available, but we have a closed beta group to provide high-quality support and to gather feedback. [Sign up][beta-signup] for the beta group. We would love to hear what you are working on and how you might use Everywhere Computer!
+
 The code covered in this post is available in the [writing-functions-blogpost-2024][writing-functions-repo] repository.
 
 ### Wasm components, WIT, and WASI logging
@@ -416,6 +418,7 @@ We'd like to offer our sincere thanks to
 
 [^1]: Other supported languages include C/C++, Java (TeaVM Java), Go (TinyGo), and C#.
 
+[beta-signup]: https://docs.google.com/forms/d/e/1FAIpQLSfREjmoTBOW2gyUSFypn3omifibvptH0K_IQwtFWiGORU5vAQ/viewform
 [bytecode-alliance]: https://bytecodealliance.org/
 [canonical-abi]: https://github.com/WebAssembly/component-model/blob/main/design/mvp/CanonicalABI.md
 [cargo-component]: https://github.com/bytecodealliance/cargo-component
@@ -452,4 +455,4 @@ We'd like to offer our sincere thanks to
 [wit-to-ipld]: https://github.com/ipvm-wg/homestar/tree/main/homestar-wasm#interpreting-between-ipld-and-wit
 [workflows]: https://aws.amazon.com/what-is/workflow/
 [write-once-run]: https://youtu.be/dhoVlVu2XAw?si=x1YIQk-9Jkg_FphP
-[writing-functions-repo]: https://github.com/everywhere-computer/writing-functions-blogpost-20#
+[writing-functions-repo]: https://github.com/everywhere-computer/writing-functions-blogpost-2024
