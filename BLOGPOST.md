@@ -435,7 +435,7 @@ We'd like to offer our sincere thanks to
 [install-ipfs]: https://docs.ipfs.tech/install/command-line/#install-official-binary-distributions
 [introducing-componentize-py-blog]: https://www.fermyon.com/blog/introducing-componentize-py
 [introducing-componentize-py-video]: https://www.youtube.com/watch?v=PkAO17lmqsI
-[ipfs]: https://www.ipfs.com/
+[ipfs]: https://ipfs.tech/
 [ipvm]: https://fission.codes/ecosystem/ipvm/
 [ir]: https://en.wikipedia.org/wiki/Intermediate_representation
 [javascript-webassembly-post]: https://bytecodealliance.org/articles/making-javascript-run-fast-on-webassembly
