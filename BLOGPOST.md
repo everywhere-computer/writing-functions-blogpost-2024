@@ -26,6 +26,8 @@ In addition, our Homestar runtime utilizes alternate formats as internal [interm
 
 #### Embedding Wasmtime
 
+The Homestar runtime embeds the [Wasmtime][wasmtime] runtime to execute Wasm components (outside of the web) associated with tasks in a workflow. Built and maintained by the [Bytecode Alliance][bytecode-alliance], the Wasmtime runtime delivers on driving multi-language support and fine-grained configuration for things like CPU and memory usage. With platforms and frameworks like [wasmCloud][wasmcloud], [Spin][fermyon-spin], and [Fastly Compute][fastly-compute] all integrating with Wasmtime for their endeavors, we're in good company. Plus, we need a runtime that's at the forefront of the latest developments in the Wasm ecosystem, including the WASI stack, which recently reached [WASI Preview 2][wasip2], enabling library developers and implementers, like ourselves, the ability to work with and build upon lower level primitives from a stable set of common interfaces.
+
 #### Wit
 
 #### WASI Logging
@@ -412,7 +414,7 @@ We will share more about Control Panel in a future post.
 
 We'd like to offer our sincere thanks to
 
-[^1]: Other supported languages include C/C++, Java (TeaVM Java), Go (TinyGo), and C#
+[^1]: Other supported languages include C/C++, Java (TeaVM Java), Go (TinyGo), and C#.
 
 [bytecode-alliance]: https://bytecodealliance.org/
 [canonical-abi]: https://github.com/WebAssembly/component-model/blob/main/design/mvp/CanonicalABI.md
@@ -422,6 +424,8 @@ We'd like to offer our sincere thanks to
 [componentize-py]: https://github.com/bytecodealliance/componentize-py
 [content-addressing]: https://en.wikipedia.org/wiki/Content-addressable_storage
 [core-wasm]: https://webassembly.github.io/spec/core/
+[fastly-compute]: https://www.fastly.com/products/compute
+[fermyon-spin]: https://www.fermyon.com/spin
 [homestar-client]: https://www.npmjs.com/package/@fission-codes/homestar
 [everycli]: https://docs.everywhere.computer/everycli/
 [everywhere-comp]: https://everywhere.computer/
@@ -439,6 +443,7 @@ We'd like to offer our sincere thanks to
 [simple-made-easy]: https://www.infoq.com/presentations/Simple-Made-Easy/
 [wasm-component]: https://component-model.bytecodealliance.org/
 [wasip2]: https://blog.sunfishcode.online/wasi-0-2/
+[wasmcloud]: https://wasmcloud.com/blog/wasmtime-a-standardized-runtime-for-wasmcloud
 [wit]: https://github.com/WebAssembly/component-model/blob/main/design/mvp/WIT.md
 [wit-bindgen]: https://github.com/bytecodealliance/wit-bindgen
 [wit-guest]: https://github.com/bytecodealliance/wit-bindgen?tab=readme-ov-file#supported-guest-languages
