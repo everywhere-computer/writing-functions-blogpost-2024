@@ -231,7 +231,7 @@ Also, the [Introducing Componentize-Py: A Tool for Packaging Python Apps as Comp
 
 ### IPFS
 
-Homestar and Everywhere Computer currently uses IPFS as a storage layer. Before we start into the next section, [install IPFS Kubo][install-ipfs] and start the IPFS daemon:
+Homestar and Everywhere Computer currently uses [IPFS][ipfs] as a storage layer. Before we start into the next section, [install IPFS Kubo][install-ipfs] and start the IPFS daemon:
 
 ```sh
 ipfs daemon
@@ -424,20 +424,21 @@ We'd like to offer our sincere thanks to
 [componentize-py]: https://github.com/bytecodealliance/componentize-py
 [content-addressing]: https://en.wikipedia.org/wiki/Content-addressable_storage
 [core-wasm]: https://webassembly.github.io/spec/core/
+[everycli]: https://docs.everywhere.computer/everycli/
+[everywhere-comp]: https://everywhere.computer/
 [fastly-compute]: https://www.fastly.com/products/compute
 [fermyon-spin]: https://www.fermyon.com/spin
 [homestar-client]: https://www.npmjs.com/package/@fission-codes/homestar
-[everycli]: https://docs.everywhere.computer/everycli/
-[everywhere-comp]: https://everywhere.computer/
 [homestar-config]: https://docs.everywhere.computer/homestar/configuration/
 [homestar-runtime]: https://github.com/ipvm-wg/homestar/blob/main/README.md
 [install-every-cli]: https://www.npmjs.com/package/@everywhere-computer/every-cli
 [install-ipfs]: https://docs.ipfs.tech/install/command-line/#install-official-binary-distributions
 [introducing-componentize-py-blog]: https://www.fermyon.com/blog/introducing-componentize-py
 [introducing-componentize-py-video]: https://www.youtube.com/watch?v=PkAO17lmqsI
+[ipfs]: https://www.ipfs.com/
+[ipvm]: https://fission.codes/ecosystem/ipvm/
 [ir]: https://en.wikipedia.org/wiki/Intermediate_representation
 [javascript-webassembly-post]: https://bytecodealliance.org/articles/making-javascript-run-fast-on-webassembly
-[ipvm]: https://fission.codes/ecosystem/ipvm/
 [path-to-components]: https://youtu.be/phodPLY8zNE
 [pop]: https://en.wikipedia.org/wiki/Point_of_presence
 [simple-made-easy]: https://www.infoq.com/presentations/Simple-Made-Easy/
