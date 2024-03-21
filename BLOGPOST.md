@@ -44,33 +44,13 @@ WIT provides built-in types, including primitives like signed/unsigned integer t
 
 To provide more detailed, localized information when reporting runtime execution errors and helpful workflow events, Every CLI exposes logs executed by guest programs atop the Homestar host runtime. As we'll demonstrate later in this post, by calling `log` in your guest code, Every CLI can then display these logs in a console at a certain level of verbosity and with contextual information. In order to emit these log messages, the Homestar runtime implements the [WASI logging WIT proposed interface][wasi-logging], exposing the `log` method to function writers for integration into their programs, all without having to worry about formatting and setup.
 
-<!-- #### Wasm Components -->
-
-<!-- - Why? -->
-<!-- - Bytecodealliance work on components -->
-<!-- - We'll use their tooling for writing components -->
-<!-- - We also use their Wasmtime in Homestar! -->
-
-<!-- #### WIT -->
-
-<!-- - Describe Wasm component interfaces -->
-<!-- - Consistent interface implemented by our source languages -->
-<!-- - Has it's own type system -->
-
-<!-- #### WASI logging -->
-
-<!-- - Introduce WASI -->
-<!-- - Homestar acts as a host that implements WASI logging -->
-<!-- - Our functions log messages that are displayed by Homestar -->
-<!-- - Can use for logging information or reporting errors -->
-
 ### Our functions
 
 We will write arithmetic operations in each source language to keep our example code simple and straightforward. We will use division to show division by zero error reporting.
 
 Our Rust program will perform addition and division; the JavaScript one will perform subtraction; and, the Python program will carry out multiplication.
 
-Our functions will be compiled to Wasm components using tools from or built upon the excellent work from the [Bytecode Alliance][bytecode-alliance]. The Wasm component ecosystem is evolving quickly, so keep in mind that the techniques described in this blog post may be out of date. We'll provide links so you can check on the latest developments.
+Our functions will be compiled to Wasm components using tools from or built upon the excellent work from the Bytecode Alliance. The Wasm component ecosystem is evolving quickly, so keep in mind that the techniques described in this blog post may be out of date. We'll provide links so you can check on the latest developments.
 
 #### Rust
 
@@ -422,10 +402,11 @@ We will write about Control Panel, offloading compute to other nodes in a networ
 
 #### Acknowledgements
 
-We'd like to offer our sincere thanks to
+We'd like to offer a heartfelt thanks to those developing Wasmtime, ComponentizeJS, Componentize-Py, and the many tools made available throughout the Wasm ecosystem. We're ecstatic to be part of this community and to be building on top of these platforms. Particular thanks is due to the [Fission team][fission-team], [Alex Crichton][alex-crichton], [Guy Bedford][guy-bedford], [Joel Dice][joel-dice], [Pat Hickey][pat-hickey], [James Dennis][james-dennis], and many others who have helped us along the way.
 
 [^1]: Other supported languages include C/C++, Java (TeaVM Java), Go (TinyGo), and C#.
 
+[alex-crichton]: https://github.com/alexcrichton
 [beta-signup]: https://docs.google.com/forms/d/e/1FAIpQLSfREjmoTBOW2gyUSFypn3omifibvptH0K_IQwtFWiGORU5vAQ/viewform
 [bytecode-alliance]: https://bytecodealliance.org/
 [canonical-abi]: https://github.com/WebAssembly/component-model/blob/main/design/mvp/CanonicalABI.md
@@ -439,6 +420,8 @@ We'd like to offer our sincere thanks to
 [everywhere-comp]: https://everywhere.computer/
 [fastly-compute]: https://www.fastly.com/products/compute
 [fermyon-spin]: https://www.fermyon.com/spin
+[fission-team]: https://fission.codes/team/
+[guy-bedford]: https://github.com/guybedford
 [homestar-client]: https://www.npmjs.com/package/@fission-codes/homestar
 [homestar-config]: https://docs.everywhere.computer/homestar/configuration/
 [homestar-runtime]: https://github.com/ipvm-wg/homestar/blob/main/README.md
@@ -449,7 +432,10 @@ We'd like to offer our sincere thanks to
 [ipfs]: https://ipfs.tech/
 [ipvm]: https://fission.codes/ecosystem/ipvm/
 [ir]: https://en.wikipedia.org/wiki/Intermediate_representation
+[james-dennis]: https://jmsdnns.com/
 [javascript-webassembly-post]: https://bytecodealliance.org/articles/making-javascript-run-fast-on-webassembly
+[joel-dice]: https://github.com/dicej
+[pat-hickey]:https://github.com/pchickey
 [path-to-components]: https://youtu.be/phodPLY8zNE
 [pop]: https://en.wikipedia.org/wiki/Point_of_presence
 [simple-made-easy]: https://www.infoq.com/presentations/Simple-Made-Easy/
