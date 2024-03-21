@@ -1,6 +1,6 @@
 # Writing Functions for Everywhere Computer
 
-[Everywhere Computer][everywhere-comp] is an emerging decentralized platform that aims to distribute computational tasks across a vast, open network. This network spans from your personal machine to other devices on your LAN, a cluster of cloud nodes, and even to [PoPs (point of presences)][pop] located at the edge of the Internet. Processing happens as close to the data source as possible or on machines with general availability or critical resources where relocating data is worthwhile.
+[Everywhere Computer][everywhere-comp] is an emerging decentralized platform that aims to distribute computational tasks across a vast, open network. This network spans from your personal machine to other devices on your LAN, a cluster of cloud nodes, and even to [PoPs (points of presence)][pop] located at the edge of the Internet. Processing happens as close to the data source as possible or on machines with general availability or critical resources where relocating data is worthwhile.
 
 At its core, Everywhere Computer is built on the [InterPlanetary Virtual Machine (IPVM)][ipvm] protocol. It executes [workflows][workflows] containing tasks that are [content-addressed][content-addressing]—which means they're uniquely identified by their content rather than by their location. This system is powered by our [Homestar runtime][homestar-runtime], an engine that runs Wasm-based workflows composed of [Wasm components][wasm-component] with runnable functions that can be scheduled and executed by any Homestar peer throughout the network.
 
@@ -30,13 +30,13 @@ In addition, our Homestar runtime utilizes alternate formats as internal [interm
 
 The Homestar runtime embeds the [Wasmtime][wasmtime] runtime to execute Wasm components associated with tasks in a workflow. The Wasmtime runtime is built and maintained by the [Bytecode Alliance][bytecode-alliance]. It provides multi-language support and fine-grained configuration for CPU and memory usage.
 
-Wasmtime is at the forefront of the Wasm ecosystem that includes their support of the WASI stack, which recently reached [WASI Preview 2][wasip2]. WASI gives library developers and implementers, like ourselves, lower level primitives like files, sockets, and HTTP with a stable set of common interfaces to build on.
+Wasmtime is at the forefront of the Wasm ecosystem which includes their support of the WASI stack, which recently reached [WASI Preview 2][wasip2]. WASI gives library developers and implementers, like ourselves, lower-level primitives like files, sockets, and HTTP with a stable set of common interfaces to build on.
 
 We're in good company using Wasmtime. It has already been adopted by platforms and frameworks like [wasmCloud][wasmcloud], [Spin][fermyon-spin], and [Fastly Compute][fastly-compute].
 
 #### WIT
 
-In the following sections, we will use WIT interfaces to define the types for our functions and a [world][wit-world] to describe the imports and exports associated with each Wasm component. Then, we will implement the interfaces in Rust, JavaScript, and Python.
+In the following sections, we will use WIT interfaces to define the types of our functions and a [world][wit-world] to describe the imports and exports associated with each Wasm component. Then, we will implement the interfaces in Rust, JavaScript, and Python.
 
 WIT provides built-in types, including primitives like signed/unsigned integer types, floats, strings, and more interesting and complex types like results, options, and lists. WIT also provides a way to define custom, user-defined types like records, variants, and enums. Homestar supports all of these WIT types internally (except [resources][wit-resources], which we do not permit in guest code) when translating between other formats and data structures.
 
@@ -46,33 +46,13 @@ Every CLI reports logs executed by guest programs running on the Homestar host r
 
 In addition, Every CLI provides detailed information that reports workflow events and runtime execution errors.
 
-<!-- #### Wasm Components -->
-
-<!-- - Why? -->
-<!-- - Bytecodealliance work on components -->
-<!-- - We'll use their tooling for writing components -->
-<!-- - We also use their Wasmtime in Homestar! -->
-
-<!-- #### WIT -->
-
-<!-- - Describe Wasm component interfaces -->
-<!-- - Consistent interface implemented by our source languages -->
-<!-- - Has it's own type system -->
-
-<!-- #### WASI logging -->
-
-<!-- - Introduce WASI -->
-<!-- - Homestar acts as a host that implements WASI logging -->
-<!-- - Our functions log messages that are displayed by Homestar -->
-<!-- - Can use for logging information or reporting errors -->
-
 ### Our functions
 
-We will write arithmetic operations in each source language to keep our example code simple and straightforward. We will use division to show division by zero error reporting.
+We will write arithmetic operations in each source language to keep our example code simple. We will use division to show division by zero error reporting.
 
 Our Rust program will perform addition and division; the JavaScript one will perform subtraction; and, the Python program will carry out multiplication.
 
-Our functions will be compiled to Wasm components using tools from or built upon the excellent work from the [Bytecode Alliance][bytecode-alliance]. The Wasm component ecosystem is evolving quickly, so keep in mind that the techniques described in this blog post may be out of date. We'll provide links so you can check on the latest developments.
+Our functions will be compiled into Wasm components using tools from or built upon the excellent work of the Bytecode Alliance. The Wasm component ecosystem is evolving quickly, so keep in mind that the techniques described in this blog post may be out of date. We'll provide links so you can check on the latest developments.
 
 #### Rust
 
@@ -108,7 +88,7 @@ world math {
 
 `cargo component` generates a set of bindings that produce a `Guest` trait that requires us to implement the interfaces from our WIT world. It also provides an interface for the WASI logging dependency.
 
-Our Rust source code implements `add` and `divide` with logging for each operation and error reporting when division by zero would occur.
+Our Rust source code implements `add` and `divide` with logging for each operation and error reporting when division by zero occurs.
 
 ```rust
 #[allow(warnings)]
@@ -162,7 +142,7 @@ bindings::export!(Component with_types_in bindings);
 
 #### JavaScript
 
-For JavaScript, we use [Homestar Wasmify][homestar-client] to generate a Wasm component. Wasmify is our tool to generate Wasm components from JavaScript code. Wasmify generates Wasm components by bundling JavaScript code, generating WIT types from TypeScript code or JSDoc-defined types, and embedding WASI dependencies. Keep in mind that Wasmify is in development and does not support all WIT defined types.
+For JavaScript, we use [Homestar Wasmify][homestar-client] to generate a Wasm component. Wasmify is our tool to generate Wasm components from JavaScript code. Wasmify generates Wasm components by bundling JavaScript code, generating WIT types from TypeScript code or JSDoc-defined types, and embedding WASI dependencies. Keep in mind that Wasmify is in development and does not support all WIT-defined types.
 
 Our TypeScript source code subtracts two numbers and logs the operation:
 
@@ -191,7 +171,7 @@ await build({
 
 Running this script will produce a Wasm component with a `subtract` name prefix and a hash, for example `subtract-j54di3rspj2eewjro4.wasm`.
 
-Wasmify is built on top of [ComponentizeJS][componentize-js] which ingests JavaScript source code and embeds SpiderMonkey in a Wasm component to run it. Embedding SpiderMonkey and running JavaScript code comes at a size and perfomance cost compared to languages that can compile to WebAssembly directly, but it is necessary to provide a JavaScript environment.
+Wasmify is built on top of [ComponentizeJS][componentize-js] which ingests JavaScript source code and embeds SpiderMonkey in a Wasm component to run it. Embedding SpiderMonkey and running JavaScript code comes at a size and performance cost compared to languages that can compile to WebAssembly directly, but it is necessary to provide a JavaScript environment.
 
 See [Making JavaScript run fast on WebAssembly][javascript-webassembly-post] for more information.
 
@@ -236,14 +216,14 @@ componentize-py -d ../wit -w multiplication componentize app -o output/multiply.
 
 The `-d` option tells `componentize-py` where to look for our WIT interfaces and `-w` tells it which WIT world to use. The `componentize` command takes the name of the Python module containing the app to wrap. In our case, we are targeting `app.py`.
 
-`componentize-py` bundles `CPython`, `libc` and other dependencies into the Wasm component to interpret and provide a Python environment for our code. Like JavaScript, this comes at a size and performance cost but is necessary to run Python code.
+`componentize-py` bundles `CPython`, `libc`, and other dependencies into the Wasm component to interpret and provide a Python environment for our code. Like JavaScript, this comes at a size and performance cost but is necessary to run Python code.
 
-We recommend reading the [Introducing Componentize-Py][introducing-componentize-py-blog] blog post for more information on writing Python sourced components.
+We recommend reading the [Introducing Componentize-Py][introducing-componentize-py-blog] blog post for more information on writing Python-sourced components.
 Also, the [Introducing Componentize-Py: A Tool for Packaging Python Apps as Components][introducing-componentize-py-video] is an excellent talk that explains how `componentize-py` works.
 
 ### IPFS
 
-Homestar and Everywhere Computer currently uses [IPFS][ipfs] as a storage layer. Before we start into the next section, [install IPFS Kubo][install-ipfs] and start the IPFS daemon:
+Homestar and Everywhere Computer currently use [IPFS][ipfs] as a storage layer. Before we start into the next section, [install IPFS Kubo][install-ipfs] and start the IPFS daemon:
 
 ```sh
 ipfs daemon
@@ -257,7 +237,7 @@ We now have a set of Wasm components with arithmetic functions sourced from mult
 
 Every CLI starts a gateway that loads Wasm components onto IPFS, prepares workflows, and calls on the Homestar runtime to schedule and execute them. [Install Every CLI][install-every-cli], then we'll write a workflow.
 
-The workflows that Homestar runs are a bit challenging to write by hand directly, so Every CLI provides a simplfied workflow syntax that it uses to prepare the underlying workflow. Let's start by using `math.wasm` to add two numbers:
+The workflows that Homestar runs are a bit challenging to write by hand directly, so Every CLI provides a simplified workflow syntax that it uses to prepare the underlying workflow. Let's start by using `math.wasm` to add two numbers:
 
 ```json
 {
@@ -299,17 +279,17 @@ In addition, Every CLI has passed along logs from the Homestar runtime:
 
 The logs report information about workflow execution and include our WASI logs. Our WASI log reports `"3.1 + 5.2 = 8.3"` with the category `guest:rust:add`. WASI logs always have the `wasm_execution` subject.
 
-We can also see workflow settings, fetching resources (our Wasm components), intializing, starting, and completing the workflow. The "resolving receipts" log shows that Homestar is looking for cached results so it can avoid work where possible. The "computed receipt" log reports the [CID][cid], a content identifier derived from the content's cryptographic hash, of the receipt from the add computation. Every CLI returns the workflow result, but the computed receipts can be also used to pull results directly from IPFS by CID.
+We can also see workflow settings, fetching resources (our Wasm components), initializing, starting, and completing the workflow. The "resolving receipts" log shows that Homestar is looking for cached results so it can avoid work where possible. The "computed receipt" log reports the [CID][cid], a content identifier derived from the content's cryptographic hash, of the receipt from the add computation. Every CLI returns the workflow result, but the computed receipts can be also used to pull results directly from IPFS by CID.
 
 If we post the workflow to the gateway again, we see a different set of logs:
 
 ![add-replay-logs](assets/add-replay.png)
 
-This time we don't need to do any work. Homestar cached the receipts from our last run, and reports that it is replaying the workflow and its receipts.
+This time we don't need to do any work. Homestar cached the receipts from our last run and reports that it is replaying the workflow and its receipts.
 
 Notice also that our WASI log does not show up. WASI logging only happens on execution, not replay. We'll see in a moment how we can force re-execution to always see WASI logs.
 
-Let's try a workflow that uses all four arithmetic operations from our Rust, JavaScript, and Python sourced components:
+Let's try a workflow that uses all four arithmetic operations from our Rust, JavaScript, and Python-sourced components:
 
 ```json
 {
@@ -354,7 +334,7 @@ Let's try a workflow that uses all four arithmetic operations from our Rust, Jav
 }
 ```
 
-In this workflow, each task except the first receives an input from the previous task. For example, `subtract` awaits the output of `add` by using `"{{needs.add.output}}"` as a placeholder that will be filled in when `add` has completed.
+In this workflow, each task except the first receives input from the previous task. For example, `subtract` awaits the output of `add` by using `"{{needs.add.output}}"` as a placeholder that will be filled in when `add` has completed.
 
 Restart Every CLI, passing in all of our Wasm components:
 
@@ -402,9 +382,9 @@ On running this workflow, we see two errors:
 
 ![division-by-zero](assets/division-by-zero.png)
 
-The first error is our WASI log reporting a "Division by zero error". The second error is an execution error from the Wasm runtime. It's a bit inscutable, but we can see "not able to run fn divide" which tells us which function failed.
+The first error is our WASI log reporting a "Division by zero error". The second error is an execution error from the Wasm runtime. It's a bit inscrutable, but we can see "not able to run fn divide" which tells us which function failed.
 
-We've used default Homestar settings while running workflows, but these settings can be overriden with the `--config` option.
+We've used default Homestar settings while running workflows, but these settings can be overridden with the `--config` option.
 
 ```sh
 every dev --config settings.toml
@@ -414,20 +394,21 @@ See the [Homestar configuration docs][homestar-config] for commonly used setting
 
 ### Conclusion
 
-In this post, we have introduced Everywhere Computer and how you can write functions and workflows for it. This post should be enough to get you started writing your own functions.
+In this post, we have introduced Everywhere Computer and how you can write functions and workflows for it. This post should be enough to get you started writing your functions.
 
 We have much more to share. For example, you may have noticed that Every CLI starts a Control Panel:
 
 ![control-panel](assets/control-panel.png)
 
-We will write about Control Panel, offloading compute to other nodes in a network based on their capability or a scheduling policy, and working with non-determinism like network requests and persistent state in a workflow in future posts.
+We will write about the Control Panel, offloading compute to other nodes in a network based on their capability or a scheduling policy, and working with non-determinism like network requests and persistent state in a workflow in future posts.
 
 #### Acknowledgements
 
-We'd like to offer our sincere thanks to
+We'd like to offer heartfelt thanks to those developing Wasmtime, ComponentizeJS, Componentize-Py, and the many tools made available throughout the Wasm ecosystem. We're ecstatic to be part of this community and to be building on top of these platforms. Particular thanks are due to the [Fission team][fission-team], [Alex Crichton][alex-crichton], [Guy Bedford][guy-bedford], [Joel Dice][joel-dice], [Pat Hickey][pat-hickey], [James Dennis][james-dennis], and many others who have helped us along the way.
 
 [^1]: Other supported languages include C/C++, Java (TeaVM Java), Go (TinyGo), and C#.
 
+[alex-crichton]: https://github.com/alexcrichton
 [beta-signup]: https://docs.google.com/forms/d/e/1FAIpQLSfREjmoTBOW2gyUSFypn3omifibvptH0K_IQwtFWiGORU5vAQ/viewform
 [bytecode-alliance]: https://bytecodealliance.org/
 [canonical-abi]: https://github.com/WebAssembly/component-model/blob/main/design/mvp/CanonicalABI.md
@@ -441,6 +422,8 @@ We'd like to offer our sincere thanks to
 [everywhere-comp]: https://everywhere.computer/
 [fastly-compute]: https://www.fastly.com/products/compute
 [fermyon-spin]: https://www.fermyon.com/spin
+[fission-team]: https://fission.codes/team/
+[guy-bedford]: https://github.com/guybedford
 [homestar-client]: https://www.npmjs.com/package/@fission-codes/homestar
 [homestar-config]: https://docs.everywhere.computer/homestar/configuration/
 [homestar-runtime]: https://github.com/ipvm-wg/homestar/blob/main/README.md
@@ -451,7 +434,10 @@ We'd like to offer our sincere thanks to
 [ipfs]: https://ipfs.tech/
 [ipvm]: https://fission.codes/ecosystem/ipvm/
 [ir]: https://en.wikipedia.org/wiki/Intermediate_representation
+[james-dennis]: https://jmsdnns.com/
 [javascript-webassembly-post]: https://bytecodealliance.org/articles/making-javascript-run-fast-on-webassembly
+[joel-dice]: https://github.com/dicej
+[pat-hickey]:https://github.com/pchickey
 [path-to-components]: https://youtu.be/phodPLY8zNE
 [pop]: https://en.wikipedia.org/wiki/Point_of_presence
 [simple-made-easy]: https://www.infoq.com/presentations/Simple-Made-Easy/
