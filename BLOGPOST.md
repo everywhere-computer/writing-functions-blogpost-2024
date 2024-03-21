@@ -2,27 +2,25 @@
 
 This post was published on the [Fission][fission-blog] blog.
 
-*Authors*: [Brian Ginsburg][bgins] and [Zeeshan Lakhani][zeeshan-lakhani]
+_Authors_: [Brian Ginsburg][bgins] and [Zeeshan Lakhani][zeeshan-lakhani]
 
 ---
 
-[Everywhere Computer][everywhere-comp] is an emerging decentralized platform that aims to distribute computational tasks across a vast, open network. This network spans from your personal machine to other devices on your LAN, a cluster of cloud nodes, and even to [PoPs (points of presence)][pop] located at the edge of the Internet. Processing can happen as close to the data source as possible or scheduled on nodes where general availability or critical resources like GPU or CPU are more abundant.
+[Everywhere Computer][everywhere-comp] is an emerging decentralized platform that aims to distribute computational tasks across a vast, open network. This network spans from your personal machine to other devices on your LAN, a cluster of cloud nodes, and even to [PoPs (points of presence)][pop] located at the edge of the Internet. Processing happens as close to the data source as possible or scheduled on nodes with general availability or critical resources like sufficiently capable CPUs or GPUs.
 
 At its core, Everywhere Computer is built on the [InterPlanetary Virtual Machine (IPVM)][ipvm] protocol. It executes [workflows][workflows] containing tasks that are [content-addressed][content-addressing]—which means they're uniquely identified by their content rather than by their location. This system is powered by our [Homestar runtime][homestar-runtime], an engine that runs Wasm-based workflows composed of [Wasm components][wasm-component] with runnable functions that can be scheduled and executed by any Homestar peer throughout the network.
 
-Beyond the sandboxing, portability, and predictable performance benefits of Wasm, we're excited about orchestrating workflows and state machines composed of modules compiled from different source languages and then tying them altogether as a workflow where the output of one task feeds into the input of another. Composing a set of related functions, whether we write them ourselves or use existing ones that will eventually land in our registry, into a singular compute workflow, akin to [step functions][aws-step-fn], lets users focus on defining component interactions in languages of their choosing without having to program the in-between logic to make the interactions work.
+Beyond the sandboxing, portability, and predictable performance benefits of Wasm, we're excited about orchestrating workflows and state machines composed of modules compiled from different source languages and bringing them together in workflows where the output of one task feeds into the input of another. Composing components in a workflow lets users focus on component interfaces without having to consider interactions between multiple languages.
 
 ![everywhere-at-a-glance](./assets/blogcompute_nontransparent.png)
 
-With Everywhere Computer, we're all in on "[the return of write once, run anywhere][write-once-run]" as a motto, where workflows can run on the browser, an ARM laptop, or a remote edge device, but with content-addressing and our focus on replayability of previously computed tasks, which are cached and not re-run, we can go a step further and say "**write once, run once, and never again (everywhere)**."
+With Everywhere Computer, we're all in on "[the return of write once, run anywhere][write-once-run]" as a motto, but with content-addressing and our focus on caching and replayability of previously computed tasks, we can go a step further and say "**write once, run once, and never again (everywhere)**."
 
-With this post, our goal is to introduce authoring Wasm components and, therefore, functions for Everywhere Computer. Wasm components can be authored in [various languages][wit-guest][^1], but we'll focus primarily on Rust, JavaScript, and Python for this post.
-
-[Skipping ahead](#our-functions), *a)* we'll highlight the essential code and dependencies needed to implement our functions for each of these languages, *b)* compile them to Wasm, packaging them as Wasm components, *c)* and then bring them all together into a workflow that executes on our compute platform using [Every CLI][everycli]. Along the way, we'll introduce Wasm component tooling, the Homestar runtime, and Every CLI, the latter of which provides a convenient interface for running Homestar with a gateway for preparing and executing workflows.
+With this post, our goal is to introduce authoring Wasm components and, therefore, functions for Everywhere Computer. Wasm components can be authored in [various languages][wit-guest][^1], but we'll focus primarily on Rust, JavaScript, and Python for this post. We'll be writing functions in each of these languages, compiling them to Wasm, packaging them as Wasm components, and bringing them together into a workflow that executes on our compute platform. Along the way, we'll introduce Wasm component tooling, the Homestar runtime, and [Every CLI][everycli], the latter of which provides a convenient interface for running Homestar with a gateway for preparing and executing workflows.
 
 Everywhere Computer is in beta. Everything is publicly available, but we have a closed beta group to provide high-quality support and to gather feedback. [Sign up][beta-signup] for the beta group. We would love to hear what you are working on and how you might use Everywhere Computer!
 
-The code covered in this post is available in the [writing-functions-blogpost-2024][writing-functions-repo] repository. You can follow along with the code and run the examples yourself directly from the repository.
+The code covered in this post is available in the [writing-functions-blogpost-2024][writing-functions-repo] repository.
 
 ### Background: Wasm components, WIT, and WASI logging
 
@@ -58,17 +56,17 @@ In addition, Every CLI provides detailed information that reports workflow event
 
 ### Our functions
 
-We will write arithmetic operations in each source language to keep our example code simple. We will use division to show division by zero error reporting.
-
-Our Rust program will perform addition and division; the JavaScript one will perform subtraction; and, the Python program will carry out multiplication.
+We will write arithmetic operations in each source language to keep our example code simple. Our Rust program will perform addition and division; the JavaScript one will perform subtraction; and, the Python program will carry out multiplication. We will use division to show division by zero error reporting.
 
 Our functions will be compiled into Wasm components using tools from or built upon the excellent work of the Bytecode Alliance. The Wasm component ecosystem is evolving quickly, so keep in mind that the techniques described in this blog post may be out of date. We'll provide links so you can check on the latest developments.
 
+Clone the [writing-functions-blogpost-2024][writing-functions-repo] repository if you would like to follow along. You will install tooling for each language, build a component from each language, start Every CLI using the components, and run workflows that call the functions in the components.
+
 #### Rust
 
-For Rust, we use [`cargo component`][cargo-component] to generate a Wasm component. You can follow along with our setup and what to install [here][rust-setup].
+For Rust, we use [`cargo component`][cargo-component] to generate a Wasm component. `cargo component` imagines what first-class support for WebAssembly components might look like for Rust.
 
-`cargo component` imagines what first-class support for WebAssembly components might look like for Rust.
+See the [Rust setup][rust-setup] instructions if you are following along.
 
 Rust support includes referencing WIT dependencies in the Cargo manifest. We reference WASI logging in our manifest:
 
@@ -150,13 +148,11 @@ impl Guest for Component {
 bindings::export!(Component with_types_in bindings);
 ```
 
-##### Making the Wasm component
-
 `cargo component build` generates the necessary bindings and outputs a `math.wasm` component to the `target/wasm32-wasi/debug` directory. A `cargo component build --release` build outputs to `target/wasm32-wasi/release`.
 
-#### JavaScript/TypeScript
+#### JavaScript
 
-For JavaScript, we use [Homestar Wasmify][homestar-client] to generate a Wasm component. You can follow along with our setup and what to install [here][js-setup].
+For JavaScript, we use [Homestar Wasmify][homestar-client] to generate a Wasm component. See the [JavaScript Setup][js-setup] instructions if you are following along.
 
 Wasmify is our tool to generate Wasm components from JavaScript code. Wasmify generates Wasm components by bundling JavaScript code, generating WIT types from TypeScript code or JSDoc-defined types, and embedding WASI dependencies. Keep in mind that [Wasmify is in development][wasmify-docs] and does not support all WIT-defined types.
 
@@ -173,8 +169,6 @@ export function subtract(a: number, b: number): number {
   return result;
 }
 ```
-
-##### Making the Wasm component
 
 Building a Wasm component from this source code calls Wasmify `build`:
 
@@ -195,7 +189,7 @@ See [Making JavaScript run fast on WebAssembly][javascript-webassembly-post] for
 
 #### Python
 
-For Python, we use [componentize-py][componentize-py] to generate a Wasm component. You can follow along with our setup and what to install and at what version [here][python-setup].
+For Python, we use [componentize-py][componentize-py] to generate a Wasm component. See the [Python Setup][python-setup] instructions if you are following along.
 
 Our WIT interface defines a `multiply` function:
 
@@ -226,8 +220,6 @@ class Multiplication(multiplication.Multiplication):
         return a * b
 ```
 
-##### Making the Wasm component
-
 We run `componentize-py` to generate our Wasm component:
 
 ```sh
@@ -243,7 +235,7 @@ Also, the [Introducing Componentize-Py: A Tool for Packaging Python Apps as Comp
 
 ### IPFS
 
-Homestar and Everywhere Computer currently use [IPFS][ipfs], specifically the [IPFS Kubo][kubo] implementation, as a storage layer. Before we start into the next section, [install IPFS Kubo][install-ipfs] and start the IPFS daemon:
+Homestar and Everywhere Computer currently use [IPFS Kubo][kubo] as a storage layer. Before we start into the next section, [install IPFS Kubo][install-ipfs] and start the IPFS daemon:
 
 ```sh
 ipfs daemon
@@ -253,11 +245,15 @@ The daemon should start an RPC API on port `5001`.
 
 ### Workflows
 
-Ok, finally, we're ready to piece it altogether! We now have a set of Wasm components with arithmetic functions sourced from multiple languages. Our next step is to run these functions in [workflows][workflows].
+We now have a set of Wasm components with arithmetic functions sourced from multiple languages. Our next step is to run these functions together in [workflows][workflows].
 
-Every CLI starts a gateway that loads Wasm components onto IPFS, prepares workflows, and calls on the Homestar runtime to schedule and execute them. [Install Every CLI][install-every-cli] (`npm i -g @everywhere-computer/every-cli`), then we'll write a workflow.
+Every CLI starts a gateway that loads Wasm components onto IPFS, prepares workflows, and calls on the Homestar runtime to schedule and execute them. Install [Every CLI][every-cli-npm], then we'll write a workflow.
 
-Every CLI also provides a simplified workflow syntax that it uses to prepare the underlying workflow. Let's start by using `math.wasm` to add two numbers:
+```sh
+npm i -g @everywhere-computer/every-cli
+```
+
+Every CLI provides a simplified workflow syntax that it uses to prepare the underlying workflow. Let's start by using `math.wasm` to add two numbers:
 
 ```json
 {
@@ -404,14 +400,6 @@ On running this workflow, we see two errors:
 
 The first error is our WASI log reporting a "Division by zero error". The second error is an execution error from the Wasm runtime. It's a bit inscrutable, but we can see "not able to run fn divide" which tells us which function failed.
 
-We've used default Homestar settings while running workflows, but these settings can be overridden with the `--config` option, including port numbers, IPFS settings, and more. For example, to use a custom settings file, you can run with the `settings.toml` file of your choice.
-
-```sh
-every dev --config settings.toml
-```
-
-See the [Homestar configuration docs][homestar-config] for commonly used settings.
-
 ### Conclusion
 
 In this post, we have introduced Everywhere Computer and how you can write functions and workflows for it. This post should be enough to get you started writing your functions.
@@ -441,6 +429,7 @@ We'd like to offer heartfelt thanks to those developing Wasmtime, ComponentizeJS
 [content-addressing]: https://en.wikipedia.org/wiki/Content-addressable_storage
 [core-wasm]: https://webassembly.github.io/spec/core/
 [everycli]: https://docs.everywhere.computer/everycli/
+[every-cli-npm]: https://www.npmjs.com/package/@everywhere-computer/every-cli
 [everywhere-comp]: https://everywhere.computer/
 [fastly-compute]: https://www.fastly.com/products/compute
 [fermyon-spin]: https://www.fermyon.com/spin
@@ -450,7 +439,6 @@ We'd like to offer heartfelt thanks to those developing Wasmtime, ComponentizeJS
 [homestar-client]: https://www.npmjs.com/package/@fission-codes/homestar
 [homestar-config]: https://docs.everywhere.computer/homestar/configuration/
 [homestar-runtime]: https://github.com/ipvm-wg/homestar/blob/main/README.md
-[install-every-cli]: https://www.npmjs.com/package/@everywhere-computer/every-cli
 [install-ipfs]: https://docs.ipfs.tech/install/command-line/#install-official-binary-distributions
 [introducing-componentize-py-blog]: https://www.fermyon.com/blog/introducing-componentize-py
 [introducing-componentize-py-video]: https://www.youtube.com/watch?v=PkAO17lmqsI
