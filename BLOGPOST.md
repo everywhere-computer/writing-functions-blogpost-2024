@@ -87,7 +87,7 @@ world = "math"
 
 Our WIT interface defines `add` and `divide` functions:
 
-```
+```wit
 package fission:math@0.1.0;
 
 world math {
@@ -199,7 +199,7 @@ For Python, we use [componentize-py][componentize-py] to generate a Wasm compone
 
 Our WIT interface defines a `multiply` function:
 
-```
+```wit
 package fission:math@0.1.0;
 
 world multiplication {
