@@ -6,13 +6,13 @@ This post was published on the [Fission][fission-blog] blog.
 
 ---
 
-[Everywhere Computer][everywhere-comp] is an emerging decentralized platform that aims to distribute computational tasks across a vast, open network. This network spans from your personal machine to other devices on your LAN, a cluster of cloud nodes, and even to [PoPs (points of presence)][pop] located at the edge of the Internet. Processing can happen as close to the data source as possible or scheduled on machines where general availability or critical resources are more abundant.
+[Everywhere Computer][everywhere-comp] is an emerging decentralized platform that aims to distribute computational tasks across a vast, open network. This network spans from your personal machine to other devices on your LAN, a cluster of cloud nodes, and even to [PoPs (points of presence)][pop] located at the edge of the Internet. Processing can happen as close to the data source as possible or scheduled on nodes where general availability or critical resources like GPU or CPU are more abundant.
 
 At its core, Everywhere Computer is built on the [InterPlanetary Virtual Machine (IPVM)][ipvm] protocol. It executes [workflows][workflows] containing tasks that are [content-addressed][content-addressing]—which means they're uniquely identified by their content rather than by their location. This system is powered by our [Homestar runtime][homestar-runtime], an engine that runs Wasm-based workflows composed of [Wasm components][wasm-component] with runnable functions that can be scheduled and executed by any Homestar peer throughout the network.
 
-![everywhere-at-a-glance](./assets/blogcompute_nontransparent.png)
+Beyond the sandboxing, portability, and predictable performance benefits of Wasm, we're excited about orchestrating workflows and state machines composed of modules compiled from different source languages and then tying them altogether as a workflow where the output of one task feeds into the input of another. Composing a set of related functions, whether we write them ourselves or use existing ones that will eventually land in our registry, into a singular compute workflow, akin to [step functions][aws-step-fn], lets users focus on defining component interactions in languages of their choosing without having to program the in-between logic to make the interactions work.
 
-Beyond the sandboxing, portability, and predictable performance benefits of Wasm, we're excited about orchestrating workflows and state machines composed of modules compiled from different source languages and then tying them altogether as a workflow where the output of one task feeds into the input of another. Using workflows let users focus on defining component interactions instead of writing in the in-between logic to make the interactions work.
+![everywhere-at-a-glance](./assets/blogcompute_nontransparent.png)
 
 With Everywhere Computer, we're all in on "[the return of write once, run anywhere][write-once-run]" as a motto, where workflows can run on the browser, an ARM laptop, or a remote edge device, but with content-addressing and our focus on replayability of previously computed tasks, which are cached and not re-run, we can go a step further and say "**write once, run once, and never again (everywhere)**."
 
@@ -429,6 +429,7 @@ We'd like to offer heartfelt thanks to those developing Wasmtime, ComponentizeJS
 [^1]: Other supported languages include C/C++, Java (TeaVM Java), Go (TinyGo), and C#.
 
 [alex-crichton]: https://github.com/alexcrichton
+[aws-step-fn]: https://aws.amazon.com/step-functions/
 [beta-signup]: https://docs.google.com/forms/d/e/1FAIpQLSfREjmoTBOW2gyUSFypn3omifibvptH0K_IQwtFWiGORU5vAQ/viewform
 [bgins]: https://github.com/bgins
 [bytecode-alliance]: https://bytecodealliance.org/
