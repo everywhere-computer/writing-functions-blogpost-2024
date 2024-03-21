@@ -1,5 +1,11 @@
 # Writing Functions for Everywhere Computer
 
+This post was published on the [Fission][fission-blog] blog.
+
+*Authors*: [Brian Ginsburg][bgins] and [Zeeshan Lakhani][zeeshan-lakhani]
+
+---
+
 [Everywhere Computer][everywhere-comp] is an emerging decentralized platform that aims to distribute computational tasks across a vast, open network. This network spans from your personal machine to other devices on your LAN, a cluster of cloud nodes, and even to [PoPs (points of presence)][pop] located at the edge of the Internet. Processing can happen as close to the data source as possible or scheduled on machines where general availability or critical resources are more abundant.
 
 At its core, Everywhere Computer is built on the [InterPlanetary Virtual Machine (IPVM)][ipvm] protocol. It executes [workflows][workflows] containing tasks that are [content-addressed][content-addressing]—which means they're uniquely identified by their content rather than by their location. This system is powered by our [Homestar runtime][homestar-runtime], an engine that runs Wasm-based workflows composed of [Wasm components][wasm-component] with runnable functions that can be scheduled and executed by any Homestar peer throughout the network.
@@ -424,6 +430,7 @@ We'd like to offer heartfelt thanks to those developing Wasmtime, ComponentizeJS
 
 [alex-crichton]: https://github.com/alexcrichton
 [beta-signup]: https://docs.google.com/forms/d/e/1FAIpQLSfREjmoTBOW2gyUSFypn3omifibvptH0K_IQwtFWiGORU5vAQ/viewform
+[bgins]: https://github.com/bgins
 [bytecode-alliance]: https://bytecodealliance.org/
 [canonical-abi]: https://github.com/WebAssembly/component-model/blob/main/design/mvp/CanonicalABI.md
 [cargo-component]: https://github.com/bytecodealliance/cargo-component
@@ -436,6 +443,7 @@ We'd like to offer heartfelt thanks to those developing Wasmtime, ComponentizeJS
 [everywhere-comp]: https://everywhere.computer/
 [fastly-compute]: https://www.fastly.com/products/compute
 [fermyon-spin]: https://www.fermyon.com/spin
+[fission-blog]: https://fission.codes/blog/
 [fission-team]: https://fission.codes/team/
 [guy-bedford]: https://github.com/guybedford
 [homestar-client]: https://www.npmjs.com/package/@fission-codes/homestar
@@ -478,3 +486,4 @@ We'd like to offer heartfelt thanks to those developing Wasmtime, ComponentizeJS
 [workflows]: https://aws.amazon.com/what-is/workflow/
 [write-once-run]: https://youtu.be/dhoVlVu2XAw?si=x1YIQk-9Jkg_FphP
 [writing-functions-repo]: https://github.com/everywhere-computer/writing-functions-blogpost-2024
+[zeeshan-lakhani]: https://zee.town/
