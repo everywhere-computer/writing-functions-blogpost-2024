@@ -10,7 +10,7 @@ _Authors_: [Brian Ginsburg][bgins] and [Zeeshan Lakhani][zeeshan-lakhani]
 
 At its core, Everywhere Computer is built on the [InterPlanetary Virtual Machine (IPVM)][ipvm] protocol. It executes [workflows][workflows] containing tasks that are [content-addressed][content-addressing]—which means they're uniquely identified by their content rather than by their location. This system is powered by our [Homestar runtime][homestar-runtime], an engine that runs Wasm-based workflows composed of [Wasm components][wasm-component] with runnable functions that can be scheduled and executed by any Homestar peer throughout the network.
 
-Beyond the sandboxing, portability, and predictable performance benefits of Wasm, we're excited about orchestrating workflows and state machines composed of modules compiled from different source languages and bringing them together in workflows where the output of one task feeds into the input of another. Composing components in a workflow lets users focus on component interfaces without having to consider interactions between multiple languages.
+Beyond the sandboxing, portability, and predictable performance benefits of Wasm, we're excited about orchestrating workflows and state machines composed of modules compiled from different source languages and bringing them together into workflows where the output of one task feeds into the input of another. Composing components in a workflow lets users focus on component interfaces without considering interactions between multiple languages.
 
 ![everywhere-at-a-glance](./assets/blogcompute_nontransparent.png)
 
