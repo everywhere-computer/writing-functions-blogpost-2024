@@ -154,7 +154,7 @@ For JavaScript, we use [Homestar Wasmify][homestar-client] to generate a Wasm co
 
 Wasmify is our tool to generate Wasm components from JavaScript code. Wasmify generates Wasm components by bundling JavaScript code, generating WIT types from TypeScript code or JSDoc-defined types, and embedding WASI dependencies. Keep in mind that [Wasmify is in development][wasmify-docs] and does not support all WIT-defined types.
 
-Our TypeScript source code subtracts two numbers and logs the operation:
+Our [TypeScript source code][ts-src] subtracts two numbers and logs the operation:
 
 ```typescript
 import { log } from "wasi:logging/logging";
@@ -205,7 +205,7 @@ world multiplication {
 
 `componentize-py` generates a set of bindings to import in our Python source code. Unlike Rust, the bindings do not need to be written to a file and can be generated on the fly.
 
-Our Python source code multiplies two numbers and logs the operation:
+Our [Python source code][python-src] multiplies two numbers and logs the operation:
 
 ```python
 import multiplication
@@ -458,9 +458,11 @@ We'd like to offer heartfelt thanks to those developing Wasmtime, ComponentizeJS
 [path-to-components]: https://youtu.be/phodPLY8zNE
 [pop]: https://en.wikipedia.org/wiki/Point_of_presence
 [python-setup]: https://github.com/everywhere-computer/writing-functions-blogpost-2024/tree/main/python#setup
+[python-src]: https://github.com/everywhere-computer/writing-functions-blogpost-2024/blob/main/python/app.py
 [rust-setup]: https://github.com/everywhere-computer/writing-functions-blogpost-2024/tree/main/rust#setup
 [rust-src]: https://github.com/everywhere-computer/writing-functions-blogpost-2024/blob/main/rust/src/lib.rs
 [simple-made-easy]: https://www.infoq.com/presentations/Simple-Made-Easy/
+[ts-src]: https://github.com/everywhere-computer/writing-functions-blogpost-2024/blob/main/javascript/src/subtract.ts
 [wasi-logging]: https://github.com/WebAssembly/wasi-logging/tree/main
 [wasm-component]: https://component-model.bytecodealliance.org/
 [wasmify-docs]: https://docs.everywhere.computer/everycli/#wasmify
