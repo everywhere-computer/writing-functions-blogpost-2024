@@ -60,7 +60,7 @@ We will write arithmetic operations in each source language to keep our example 
 
 Our functions will be compiled into Wasm components using tools from or built upon the excellent work of the Bytecode Alliance. The Wasm component ecosystem is evolving quickly, so keep in mind that the techniques described in this blog post may be out of date. We'll provide links so you can check on the latest developments.
 
-Clone the [writing-functions-blogpost-2024][writing-functions-repo] repository if you would like to follow along. You will install tooling for each language, build a component from each language, start Every CLI using the components, and run workflows that call the functions in the components.
+Clone the [writing-functions-blogpost-2024][writing-functions-repo] repository if you would like to follow along. The repository includes instructions for installing dependencies, tooling, and compiling components for each language. We will use Every CLI to run workflows that call the functions in these components.
 
 #### Rust
 
