@@ -66,7 +66,7 @@ Our functions will be compiled into Wasm components using tools from or built up
 
 #### Rust
 
-For Rust, we use [`cargo component`][cargo-component] to generate a Wasm component. You can follow along with our setup and what to install [here][rust-steup].
+For Rust, we use [`cargo component`][cargo-component] to generate a Wasm component. You can follow along with our setup and what to install [here][rust-setup].
 
 `cargo component` imagines what first-class support for WebAssembly components might look like for Rust.
 
