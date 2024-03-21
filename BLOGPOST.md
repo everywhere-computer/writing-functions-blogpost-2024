@@ -42,7 +42,9 @@ WIT provides built-in types, including primitives like signed/unsigned integer t
 
 #### WASI Logging
 
-To provide more detailed, localized information when reporting runtime execution errors and helpful workflow events, Every CLI exposes logs executed by guest programs atop the Homestar host runtime. As we'll demonstrate later in this post, by calling `log` in your guest code, Every CLI can then display these logs in a console at a certain level of verbosity and with contextual information. To emit these log messages, the Homestar runtime implements the [WASI logging WIT proposed interface][wasi-logging], exposing the `log` method to function writers for integration into their programs, all without having to worry about formatting and setup.
+Every CLI reports logs executed by guest programs running on the Homestar host runtime. In order to emit log messages, Homestar implements the [WASI logging WIT proposed interface][wasi-logging] which exposes the `log` method to function writers for integration into their programs. As we'll demonstrate later in this post, when you call `log` in your guest code, Every CLI will display logs in a console at a specified level of verbosity and with contextual information.
+
+In addition, Every CLI provides detailed information that reports workflow events and runtime execution errors.
 
 ### Our functions
 
