@@ -245,7 +245,7 @@ The daemon should start an RPC API on port `5001`.
 
 ### Workflows
 
-We now have a set of Wasm components with arithmetic functions sourced from multiple languages. Our next step is to run these functions together in [workflows][workflows].
+We now have a set of Wasm components with arithmetic functions sourced from multiple languages. Let's run these functions together in some workflows!
 
 Every CLI starts a gateway that loads Wasm components onto IPFS, prepares workflows, and calls on the Homestar runtime to schedule and execute them. Install [Every CLI][every-cli-npm], then we'll write a workflow.
 
