@@ -404,7 +404,7 @@ We will write about the Control Panel, offloading compute to other nodes in a ne
 
 #### Acknowledgements
 
-We'd like to offer heartfelt thanks to those developing Wasmtime, ComponentizeJS, Componentize-Py, and the many tools made available throughout the Wasm ecosystem. We're ecstatic to be part of this community and to be building on top of these platforms. Particular thanks are due to the [Fission team][fission-team], [Alex Crichton][alex-crichton], [Guy Bedford][guy-bedford], [Joel Dice][joel-dice], [Pat Hickey][pat-hickey], [James Dennis][james-dennis], and many others who have helped us along the way.
+We'd like to offer heartfelt thanks to those developing Wasmtime, ComponentizeJS, Componentize-Py, and the many tools available throughout the Wasm ecosystem. We're ecstatic to be part of this community and to be building on top of these platforms. Special thanks are due to the [Fission team][fission-team], [Alex Crichton][alex-crichton], [Guy Bedford][guy-bedford], [Joel Dice][joel-dice], [Pat Hickey][pat-hickey], [James Dennis][james-dennis], and the many others who have helped us along the way.
 
 [^1]: Other supported languages include C/C++, Java (TeaVM Java), Go (TinyGo), and C#.
 
@@ -437,7 +437,7 @@ We'd like to offer heartfelt thanks to those developing Wasmtime, ComponentizeJS
 [james-dennis]: https://jmsdnns.com/
 [javascript-webassembly-post]: https://bytecodealliance.org/articles/making-javascript-run-fast-on-webassembly
 [joel-dice]: https://github.com/dicej
-[pat-hickey]:https://github.com/pchickey
+[pat-hickey]: https://github.com/pchickey
 [path-to-components]: https://youtu.be/phodPLY8zNE
 [pop]: https://en.wikipedia.org/wiki/Point_of_presence
 [simple-made-easy]: https://www.infoq.com/presentations/Simple-Made-Easy/
