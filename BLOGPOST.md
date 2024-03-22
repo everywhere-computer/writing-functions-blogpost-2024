@@ -6,7 +6,7 @@ _Authors_: [Brian Ginsburg][bgins] and [Zeeshan Lakhani][zeeshan-lakhani]
 
 ---
 
-[Everywhere Computer][everywhere-comp] is an emerging decentralized platform that aims to distribute computational tasks across a vast, open network. This network spans from your personal machine to other devices on your LAN, a cluster of cloud nodes, and even to [PoPs (points of presence)][pop] located at the edge of the Internet. Processing happens as close to the data source as possible or scheduled on nodes with general availability or critical resources like sufficiently capable CPUs or GPUs.
+[Everywhere Computer][everywhere-comp] is an emerging decentralized platform that aims to distribute computational tasks across a vast, open network. This network spans from your personal machine to other devices on your LAN, a cluster of cloud nodes, and even to [PoPs (points of presence)][pop] located at the edge of the Internet. Processing happens as close to the data source as possible or scheduled on nodes with general availability or specialized capabilities like high-powered CPUs or GPUs.
 
 At its core, Everywhere Computer is built on the [InterPlanetary Virtual Machine (IPVM)][ipvm] protocol. It executes [workflows][workflows] containing tasks that are [content-addressed][content-addressing]—which means they're uniquely identified by their content rather than by their location. This system is powered by our [Homestar runtime][homestar-runtime], an engine that runs Wasm-based workflows composed of [Wasm components][wasm-component] with runnable functions that can be scheduled and executed by any Homestar peer throughout the network.
 
@@ -26,13 +26,13 @@ The code covered in this post is available in the [writing-functions-blogpost-20
 
 Evolution within the Wasm ecosystem is happening at a wicked fast pace, particularly now that the [path to Wasm components][path-to-components] has been streamlined and standardized, module-to-module interop is trivial.
 
-In Everywhere Computer, we decided to use the [Canonical ABI][canonical-abi] for converting between the values and functions of Component Model components with those of [Core WebAssembly][core-wasm] modules instead of imposing a custom ABI upon our users. A component is just a wrapper around a core module that specifies its imports, internal definitions, and exports using interfaces defined by the [WIT][wit] IDL format.
+In Everywhere Computer, we decided to use the [Canonical ABI][canonical-abi] to convert between the values and functions exposed by components written using the Component Model, and those provided by [Core WebAssembly][core-wasm] modules, instead of imposing a custom ABI upon our users. A component is just a wrapper around a core module that specifies its imports, internal definitions, and exports using interfaces defined with the [WIT][wit] IDL format.
 
 Unlike core modules, components may not export Wasm memory, reinforcing Wasm sandboxing and enabling interoperation between languages with different memory assumptions. For example, a component that relies on Wasm-GC (garbage collected) memory compiled from a dynamic language can seamlessly interact with a component compiled from a static language using linear memory.
 
-Everywhere Computer strives for [simplicity][simple-made-easy]. By adopting the Component model and its tooling (for example, [cargo-component][cargo-component] and [wit-bindgen][wit-bindgen]), we can run workflows combining components from different languages without handling incomplete Wasm modules or introducing custom tooling, bindgens, or SDKs for our ecosystem.
+Everywhere Computer strives for [simplicity][simple-made-easy]. By adopting the Component model and its tooling (for example, [cargo-component][cargo-component] and [wit-bindgen][wit-bindgen]), we can run workflows combining components from different languages without handling arbitrary Wasm modules or introducing custom tooling, bindgens, or SDKs for our ecosystem.
 
-In addition, our Homestar runtime utilizes alternate formats as internal [intermediate representations][ir]. By adopting WIT, we can [interpret][wit-to-ipld] between WIT values and other data models at runtime without function writers knowing anything about our internal formats.
+In addition, while our Homestar runtime utilizes alternate formats as internal [intermediate representations][ir], by adopting WIT, we can [interpret][wit-to-ipld] between WIT values and other data models at runtime, without exposing these internal formats to function writers.
 
 #### Embedding Wasmtime
 
@@ -50,7 +50,7 @@ WIT provides built-in types, including primitives like signed/unsigned integer t
 
 #### WASI Logging
 
-Every CLI reports logs executed by guest programs running on the Homestar host runtime. In order to emit log messages, Homestar implements the [WASI logging WIT proposed interface][wasi-logging] which exposes the `log` method to function writers for integration into their programs. As we'll demonstrate later in this post, when you call `log` in your guest code, Every CLI will display logs in a console at a specified level of verbosity and with contextual information.
+Every CLI reports logs executed by guest programs running on the Homestar host runtime. In order to emit log messages, Homestar implements the proposed [WASI logging WIT interface][wasi-logging] which exposes the `log` method to function writers for integration into their programs. As we'll demonstrate later in this post, when you call `log` in your guest code, Every CLI will display logs in a console at a specified level of verbosity and with contextual information.
 
 In addition, Every CLI provides detailed information that reports workflow events and runtime execution errors.
 
