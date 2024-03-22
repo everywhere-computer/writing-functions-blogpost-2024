@@ -60,7 +60,7 @@ We will write arithmetic operations in each source language to keep our example 
 
 Our functions will be compiled into Wasm components using tools from or built upon the excellent work of the Bytecode Alliance. The Wasm component ecosystem is evolving quickly, so keep in mind that the techniques described in this blog post may be out of date. We'll provide links so you can check on the latest developments.
 
-Clone the [writing-functions-blogpost-2024][writing-functions-repo] repository if you would like to follow along. The repository includes instructions for installing dependencies, tooling, and compiling components for each language. We will use Every CLI to run workflows that call the functions in these components.
+Clone the [writing-functions-blogpost-2024][writing-functions-repo] repository if you would like to follow along. The repository includes instructions for installing dependencies, tooling, and compiling components for each language. We will use [Every CLI][everycli] to run workflows that call the functions in these components.
 
 #### Rust
 
@@ -154,7 +154,7 @@ bindings::export!(Component with_types_in bindings);
 
 For JavaScript, we use [Homestar Wasmify][homestar-client] to generate a Wasm component. See the [JavaScript Setup][js-setup] instructions if you are following along.
 
-Wasmify is our tool to generate Wasm components from JavaScript code. Wasmify generates Wasm components by bundling JavaScript code, generating WIT types from TypeScript code or JSDoc-defined types, and embedding WASI dependencies. Keep in mind that [Wasmify is in development][wasmify-docs] and does not support all WIT-defined types.
+Wasmify is our tool to generate Wasm components from JavaScript code. Wasmify generates Wasm components by bundling JavaScript code, generating WIT types from TypeScript code or JSDoc-defined types, and embedding WASI dependencies. Keep in mind that [Wasmify][wasmify-docs] is in development and does not support all WIT-defined types.
 
 Our [TypeScript source code][ts-src] subtracts two numbers and logs the operation:
 
@@ -247,13 +247,15 @@ The daemon should start an RPC API on port `5001`.
 
 We now have a set of Wasm components with arithmetic functions sourced from multiple languages. Let's run these functions together in some workflows!
 
-Every CLI starts a gateway that loads Wasm components onto IPFS, prepares workflows, and calls on the Homestar runtime to schedule and execute them. Install [Every CLI][every-cli-npm], then we'll write a workflow.
+Every CLI starts a gateway that loads Wasm components onto IPFS, prepares workflows, and calls on the Homestar runtime to schedule and execute them.
+
+Install [Every CLI][every-cli-npm], then we'll write a workflow.
 
 ```sh
 npm i -g @everywhere-computer/every-cli
 ```
 
-Every CLI provides a simplified workflow syntax that it uses to prepare the underlying workflow. Let's start by using `math.wasm` to add two numbers:
+Every CLI provides a simplified workflow syntax that it uses to prepare the underlying workflow. Let's start by using `math.wasm` in [a workflow][add-workflow] to add two numbers:
 
 ```json
 {
@@ -305,7 +307,7 @@ This time we don't need to do any work. Homestar cached the receipts from our la
 
 Notice also that our WASI log does not show up. WASI logging only happens on execution, not replay. We'll see in a moment how we can force re-execution to always see WASI logs.
 
-Let's try a workflow that uses all four arithmetic operations from our Rust, JavaScript, and Python-sourced components:
+Let's try [a workflow][all-workflow] that uses all four arithmetic operations from our Rust, JavaScript, and Python-sourced components:
 
 ```json
 {
@@ -376,7 +378,7 @@ Our WASI logging reports each operation:
 
 We can see WASI logs from each of our components, labeled by category as `guest:rust:add`, `guest:javascript:subtract`, `guest:python:multiply`, and `guest:rust:divide`.
 
-Lastly, a workflow that attempts division by zero to check our error reporting.
+Lastly, [a workflow][div-by-zero-workflow] that attempts division by zero to check our error reporting.
 
 ```json
 {
@@ -416,6 +418,8 @@ We'd like to offer heartfelt thanks to those developing Wasmtime, ComponentizeJS
 
 [^1]: Other supported languages include C/C++, Java (TeaVM Java), Go (TinyGo), and C#.
 
+[add-workflow]: https://github.com/everywhere-computer/writing-functions-blogpost-2024/blob/main/workflows/add.json
+[all-workflow]: https://github.com/everywhere-computer/writing-functions-blogpost-2024/blob/main/workflows/all.json
 [alex-crichton]: https://github.com/alexcrichton
 [aws-step-fn]: https://aws.amazon.com/step-functions/
 [beta-signup]: https://docs.google.com/forms/d/e/1FAIpQLSfREjmoTBOW2gyUSFypn3omifibvptH0K_IQwtFWiGORU5vAQ/viewform
@@ -428,6 +432,7 @@ We'd like to offer heartfelt thanks to those developing Wasmtime, ComponentizeJS
 [componentize-py]: https://github.com/bytecodealliance/componentize-py
 [content-addressing]: https://en.wikipedia.org/wiki/Content-addressable_storage
 [core-wasm]: https://webassembly.github.io/spec/core/
+[div-by-zero-workflow]: https://github.com/everywhere-computer/writing-functions-blogpost-2024/blob/main/workflows/division_by_zero.json
 [everycli]: https://docs.everywhere.computer/everycli/
 [every-cli-npm]: https://www.npmjs.com/package/@everywhere-computer/every-cli
 [everywhere-comp]: https://everywhere.computer/
