@@ -6,7 +6,7 @@ This function is componentized using [Homestar Wasmify][homestar-client].
 
 ## Setup
 
-Install the latest version of [Node][install-node]. 
+Install the latest version of [Node][install-node].
 
 Install dependencies:
 
@@ -23,6 +23,8 @@ node index.js
 ```
 
 The node script calls Wasmify's `build` function with `src/subtract.ts` as an input and emits a Wasm component to the `output` directory.
+
+## Description
 
 Wasmify infers WIT types from TypeScript. In our function, `number` is inferred to be WIT `float64`.
 

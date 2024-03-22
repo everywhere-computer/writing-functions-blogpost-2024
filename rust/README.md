@@ -20,6 +20,26 @@ Add the `wasm32-wasi` target.
 rustup target add wasm32-wasi
 ```
 
+## Build
+
+Build for the debug target:
+
+```sh
+cargo component build
+```
+
+Build for release:
+
+```sh
+cargo component build --release
+```
+
+The builds target `wasm32-wasi` and are compiled to `rust/target/wasm32-wasi/debug/math.wasm` and `rust/target/wasm32-wasi/release/math.wasm` respectively.
+
+Note that the build generates `src/bindings.rs`. Check that the `wit-bindgen` version referenced at the top the file matches the `wit-bindgen-rt` version in the manifest if you see errors.
+
+## Description
+
 The initial code was generated with the `cargo component new --lib math` command, which generates hello world starter code. We've adapted that to replace it with our functions.
 
 Our [`math` WIT interface][math-wit] is referenced in `Cargo.toml`:
@@ -41,24 +61,6 @@ This command adds bindings that make logging available through our Rust code:
 ```rust
 use bindings::wasi::logging::logging::{log, Level};
 ```
-
-## Build
-
-Build for the debug target:
-
-```sh
-cargo component build
-```
-
-Build for release:
-
-```sh
-cargo component build --release
-```
-
-The builds target `wasm32-wasi` and are compiled to `rust/target/wasm32-wasi/debug/math.wasm` and `rust/target/wasm32-wasi/release/math.wasm` respectively.
-
-Note that the build generates `src/bindings.rs`. Check that the `wit-bindgen` version referenced at the top the file matches the `wit-bindgen-rt` version in the manifest if you see errors.
 
 [cargo-component]: https://github.com/bytecodealliance/cargo-component
 [install-rust]: https://www.rust-lang.org/tools/install
