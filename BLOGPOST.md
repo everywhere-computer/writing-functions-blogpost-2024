@@ -16,7 +16,7 @@ Beyond the sandboxing, portability, and predictable performance benefits of Wasm
 
 With Everywhere Computer, we're all in on "[the return of write once, run anywhere][write-once-run]" as a motto, but with content-addressing and our focus on caching and replayability of previously computed tasks, we can go a step further and say "**write once, run once, and never again (everywhere)**."
 
-With this post, our goal is to introduce authoring Wasm components and, therefore, functions for Everywhere Computer. Wasm components can be authored in [various languages][wit-guest][^1], but we'll focus primarily on Rust, JavaScript, and Python for this post. We'll be writing functions in each of these languages, compiling and packaging them as Wasm components, and bringing them together into a workflow that executes on our compute platform. Along the way, we'll introduce Wasm component tooling, the Homestar runtime, and [Every CLI][everycli], the latter of which provides a convenient interface for running Homestar with a gateway for preparing and executing workflows.
+This post will introduce authoring Wasm components and functions for Everywhere Computer. Wasm components can be written in [various languages][wit-guest][^1], but we'll focus primarily on Rust, JavaScript, and Python for this post. We'll be writing functions these languages, compiling and packaging them as Wasm components, and bringing them together into a workflow that executes on our compute platform. Along the way, we'll introduce Wasm component tooling, the Homestar runtime, and [Every CLI][everycli], which provides a convenient interface for running Homestar with a gateway for preparing and executing workflows.
 
 Everywhere Computer is in beta. Everything is publicly available, but we have a closed beta group to provide high-quality support and to gather feedback. [Sign up][beta-signup] for the beta group. We would love to hear what you are working on and how you might use Everywhere Computer!
 
@@ -26,19 +26,19 @@ The code covered in this post is available in the [writing-functions-blogpost-20
 
 Evolution within the Wasm ecosystem is happening at a wicked fast pace, particularly now that the [path to Wasm components][path-to-components] has been streamlined and standardized, module-to-module interop is trivial.
 
-In Everywhere Computer, we decided to use the [Canonical ABI][canonical-abi] to convert between the values and functions exposed by components written using the Component Model, and those provided by [Core WebAssembly][core-wasm] modules, instead of imposing a custom ABI upon our users. A component is just a wrapper around a core module that specifies its imports, internal definitions, and exports using interfaces defined with the [WIT][wit] IDL format.
+In Everywhere Computer, we decided to use the [Canonical ABI][canonical-abi] to convert between the values and functions exposed by components written using the Component Model and those provided by [Core WebAssembly][core-wasm] modules instead of imposing a custom ABI upon our users. A component is just a wrapper around a core module that specifies its imports, internal definitions, and exports using interfaces defined with the [WIT][wit] IDL format.
 
 Unlike core modules, components may not export Wasm memory, reinforcing Wasm sandboxing and enabling interoperation between languages with different memory assumptions. For example, a component that relies on Wasm-GC (garbage collected) memory compiled from a dynamic language can seamlessly interact with a component compiled from a static language using linear memory.
 
 Everywhere Computer strives for [simplicity][simple-made-easy]. By adopting the Component model and its tooling (for example, [cargo-component][cargo-component] and [wit-bindgen][wit-bindgen]), we can run workflows combining components from different languages without handling arbitrary Wasm modules or introducing custom tooling, bindgens, or SDKs for our ecosystem.
 
-In addition, while our Homestar runtime utilizes alternate formats as internal [intermediate representations][ir], by adopting WIT, we can [interpret][wit-to-ipld] between WIT values and other data models at runtime, without exposing these internal formats to function writers.
+In addition, while our Homestar runtime utilizes alternate formats as internal [intermediate representations][ir], by adopting WIT, we can [interpret][wit-to-ipld] between WIT values and other data models at runtime without exposing these internal formats to function writers.
 
 #### Embedding Wasmtime
 
 The Homestar runtime embeds the [Wasmtime][wasmtime] runtime to execute Wasm components associated with tasks in a workflow. The Wasmtime runtime is built and maintained by the [Bytecode Alliance][bytecode-alliance]. It provides multi-language support and fine-grained configuration for CPU and memory usage.
 
-Wasmtime is at the forefront of the Wasm ecosystem which includes their support of the WASI stack, which recently reached [WASI Preview 2][wasip2]. WASI gives library developers and implementers, like ourselves, lower-level primitives like files, sockets, and HTTP with a stable set of common interfaces to build on.
+Wasmtime is at the forefront of the Wasm ecosystem, which includes their support of the WASI stack that recently reached [WASI Preview 2][wasip2]. WASI gives library developers and implementers, like ourselves, lower-level primitives like files, sockets, and HTTP with a stable set of common interfaces to build on.
 
 We're in good company using Wasmtime. It has already been adopted by platforms and frameworks like [wasmCloud][wasmcloud], [Spin][fermyon-spin], and [Fastly Compute][fastly-compute].
 
@@ -50,13 +50,13 @@ WIT provides built-in types, including primitives like signed/unsigned integer t
 
 #### WASI Logging
 
-Every CLI reports logs executed by guest programs running on the Homestar host runtime. In order to emit log messages, Homestar implements the proposed [WASI logging WIT interface][wasi-logging] which exposes the `log` method to function writers for integration into their programs. As we'll demonstrate later in this post, when you call `log` in your guest code, Every CLI will display logs in a console at a specified level of verbosity and with contextual information.
+Every CLI reports logs executed by guest programs running on the Homestar host runtime. To emit log messages, Homestar implements the proposed [WASI logging WIT interface][wasi-logging] which exposes the `log` method to function writers for integration into their programs. As we'll demonstrate later in this post, when you call `log` in your guest code, Every CLI will display logs in a console at a specified level of verbosity and with contextual information.
 
 In addition, Every CLI provides detailed information that reports workflow events and runtime execution errors.
 
 ### Our functions
 
-We will write arithmetic operations in each source language to keep our example code simple. Our Rust program will perform addition and division; the JavaScript one will perform subtraction; and, the Python program will carry out multiplication. We will use division to show division by zero error reporting.
+We will write arithmetic operations in each source language to keep our example code simple. Our Rust program will perform addition and division, the JavaScript one will perform subtraction, and the Python program will perform multiplication. We will use division to show division by zero error reporting.
 
 Our functions will be compiled into Wasm components using tools from or built upon the excellent work of the Bytecode Alliance. The Wasm component ecosystem is evolving quickly, so keep in mind that the techniques described in this blog post may be out of date. We'll provide links so you can check on the latest developments.
 
@@ -154,7 +154,7 @@ bindings::export!(Component with_types_in bindings);
 
 For JavaScript, we use [Homestar Wasmify][homestar-client] to generate a Wasm component. See the [JavaScript Setup][js-setup] instructions if you are following along.
 
-Wasmify is our tool to generate Wasm components from JavaScript code. Wasmify generates Wasm components by bundling JavaScript code, generating WIT types from TypeScript code or JSDoc-defined types, and embedding WASI dependencies. Keep in mind that [Wasmify][wasmify-docs] is in development and does not support all WIT-defined types.
+Wasmify is our tool for generating Wasm components from JavaScript code. It generates Wasm components by bundling JavaScript code, generating WIT types from TypeScript code or JSDoc-defined types, and embedding WASI dependencies. Keep in mind that [Wasmify][wasmify-docs] is in development and does not support all WIT-defined types.
 
 Our [TypeScript source code][ts-src] subtracts two numbers and logs the operation:
 
@@ -183,7 +183,7 @@ await build({
 
 Running this script will produce a Wasm component with a `subtract` name prefix and a hash, for example `subtract-j54di3rspj2eewjro4.wasm`.
 
-Wasmify is built on top of [ComponentizeJS][componentize-js] which ingests JavaScript source code and embeds SpiderMonkey in a Wasm component to run it. Embedding SpiderMonkey and running JavaScript code comes at a size and performance cost compared to languages that can compile to WebAssembly directly, but it is necessary to provide a JavaScript environment.
+Wasmify is built on top of [ComponentizeJS][componentize-js], which ingests JavaScript source code and embeds SpiderMonkey in a Wasm component to run it. Embedding SpiderMonkey and running JavaScript code comes at a size and performance cost compared to languages that can compile to WebAssembly directly, but it is necessary to provide a JavaScript environment.
 
 See [Making JavaScript run fast on WebAssembly][javascript-webassembly-post] for more information.
 
@@ -249,7 +249,7 @@ We now have a set of Wasm components with arithmetic functions sourced from mult
 
 Every CLI starts a gateway that loads Wasm components onto IPFS, prepares workflows, and calls on the Homestar runtime to schedule and execute them.
 
-Install [Every CLI][every-cli-npm], then we'll write a workflow.
+Install [Every CLI][every-cli-npm], and then we'll write a workflow.
 
 ```sh
 npm i -g @everywhere-computer/every-cli
@@ -273,7 +273,7 @@ Every CLI provides a simplified workflow syntax that it uses to prepare the unde
 }
 ```
 
-A workflow is an array of tasks that we would like to execute. Each task is given a `name` which will be used to reference results in subsequent tasks. Our task `input` includes the name of the function to execute and the arguments to the function.
+A workflow is an array of tasks that we would like to execute. Each task is given a `name`, which will be used to reference results in subsequent tasks. Our task `input` includes the name of the function to execute and its arguments.
 
 Let's run this workflow! Start Every CLI with `math.wasm` as an argument:
 
@@ -305,7 +305,7 @@ If we post the workflow to the gateway again, we see a different set of logs:
 
 This time we don't need to do any work. Homestar cached the receipts from our last run and reports that it is replaying the workflow and its receipts.
 
-Notice also that our WASI log does not show up. WASI logging only happens on execution, not replay. We'll see in a moment how we can force re-execution to always see WASI logs.
+Notice also that our WASI log does not show up. WASI logging happens only on execution, not replay. We'll see in a moment how we can force re-execution to always see WASI logs.
 
 Let's try [a workflow][all-workflow] that uses all four arithmetic operations from our Rust, JavaScript, and Python-sourced components:
 
@@ -362,7 +362,7 @@ every dev --fn rust/target/wasm32-wasi/release/math.wasm --fn javascript/output/
 
 The hash of your subtract Wasm component may be different. Check `javascript/output` for the appropriate file name.
 
-We use the `--debug` flag this time to force re-execution of the tasks in our workflow. The `--debug` flag lets us see our WASI logs on every run while we are developing our functions, but should not be used in production because it eliminates the benefits of caching.
+We use the `--debug` flag this time to force re-execution of the tasks in our workflow. The `--debug` flag lets us see our WASI logs on every run while we are developing our functions, but it should not be used in production because it eliminates the benefits of caching.
 
 Post this workflow:
 
@@ -376,7 +376,7 @@ Our WASI logging reports each operation:
 
 ![all-logs](assets/all.png)
 
-We can see WASI logs from each of our components, labeled by category as `guest:rust:add`, `guest:javascript:subtract`, `guest:python:multiply`, and `guest:rust:divide`.
+We can see WASI logs from each component, labeled by category as `guest:rust:add`, `guest:javascript:subtract`, `guest:python:multiply`, and `guest:rust:divide`.
 
 Lastly, [a workflow][div-by-zero-workflow] that attempts division by zero to check our error reporting.
 
@@ -414,7 +414,7 @@ We will write about the Control Panel, offloading compute to other nodes in a ne
 
 #### Acknowledgements
 
-We'd like to offer heartfelt thanks to those developing Wasmtime, ComponentizeJS, Componentize-Py, and the many tools available throughout the Wasm ecosystem. We're ecstatic to be part of this community and to be building on top of these platforms. Special thanks are due to the [Fission team][fission-team], [Alex Crichton][alex-crichton], [Guy Bedford][guy-bedford], [Joel Dice][joel-dice], [Pat Hickey][pat-hickey], [James Dennis][james-dennis], [Paul Cleary][paul-cleary], and the many others who have helped us along the way.
+We want to offer heartfelt thanks to those developing Wasmtime, ComponentizeJS, Componentize-Py, and the many tools available throughout the Wasm ecosystem. We're ecstatic to be part of this community and to be building on top of these platforms. Special thanks are due to the [Fission team][fission-team], [Alex Crichton][alex-crichton], [Guy Bedford][guy-bedford], [Joel Dice][joel-dice], [Pat Hickey][pat-hickey], [James Dennis][james-dennis], [Paul Cleary][paul-cleary], and the many others who have helped us along the way.
 
 [^1]: Other supported languages include C/C++, Java (TeaVM Java), Go (TinyGo), and C#.
 
