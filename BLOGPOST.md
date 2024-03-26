@@ -64,7 +64,7 @@ Clone the [writing-functions-blogpost-2024][writing-functions-repo] repository i
 
 #### Rust
 
-For this section on Rust, we will use [`cargo component`][cargo-component] to generate a Wasm component. If you're following along with the code examples, please make sure to run the [Rust setup][rust-setup] instructions.
+For this section on Rust, we will use [`cargo component`][cargo-component] to generate a Wasm component. If you're following along with the code examples, please run the [Rust setup][rust-setup] instructions.
 
 `cargo component` imagines what first-class support for WebAssembly components might look like for Rust. Rust support includes referencing WIT dependencies in the Cargo manifest. We reference WASI logging in our manifest:
 
