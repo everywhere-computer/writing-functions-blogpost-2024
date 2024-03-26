@@ -150,7 +150,7 @@ bindings::export!(Component with_types_in bindings);
 
 #### JavaScript
 
-For this section on JavaScript, we will use [Homestar Wasmify][homestar-client] to generate a Wasm component. If you're following along with the code examples, please make sure to run the [JavaScript setup][js-setup] instructions.
+For this section on JavaScript, we will use [Homestar Wasmify][homestar-client] to generate a Wasm component. If you're following along with the code examples, please run the [JavaScript setup][js-setup] instructions.
 
 Wasmify is our tool for generating Wasm components from JavaScript code. It generates Wasm components by bundling JavaScript code, generating WIT types from TypeScript code or JSDoc-defined types, and embedding WASI dependencies. Keep in mind that [Wasmify][wasmify-docs] is in development and does not support all WIT-defined types.
 
