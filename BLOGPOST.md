@@ -278,7 +278,7 @@ A workflow is an array of tasks that we would like to execute. Each task is give
 Let's run this workflow! Start Every CLI with `math.wasm` as an argument:
 
 ```sh
-every dev --fn rust/target/wasm32-wasi/release/math.wasm
+every dev rust/target/wasm32-wasi/release/math.wasm
 ```
 
 Every CLI starts a gateway that we can query for a JSON Schema representing the WIT interfaces in `math.wasm` at `localhost:3000`.
@@ -357,7 +357,7 @@ In this workflow, each task except the first receives input from the previous ta
 Restart Every CLI, passing in all of our Wasm components:
 
 ```sh
-every dev --fn rust/target/wasm32-wasi/release/math.wasm --fn javascript/output/subtract-j54di3rspj2eewjro4.wasm --fn python/output/multiply.wasm --debug
+every dev rust/target/wasm32-wasi/release/math.wasm javascript/output/subtract-j54di3rspj2eewjro4.wasm python/output/multiply.wasm --debug
 ```
 
 The hash of your subtract Wasm component may be different. Check `javascript/output` for the appropriate file name.
@@ -394,6 +394,12 @@ Lastly, [a workflow][div-by-zero-workflow] that attempts division by zero to che
     }
   ]
 }
+```
+
+Post this workflow:
+
+```sh
+curl localhost:3000/run --json @workflows/division_by_zero.json
 ```
 
 On running this workflow, we see two errors:
