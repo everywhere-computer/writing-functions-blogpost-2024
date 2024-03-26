@@ -233,7 +233,9 @@ Also, the [Introducing Componentize-Py: A Tool for Packaging Python Apps as Comp
 
 ### IPFS
 
-Homestar and Everywhere Computer currently use [IPFS Kubo][kubo] as a storage layer for Wasm modules. In the near future, we'll support other forms of distributed storage. Before we start into the next section, [install IPFS Kubo][install-ipfs] and start the IPFS daemon:
+Homestar and Everywhere Computer currently use [IPFS Kubo][kubo] as a storage layer for Wasm components. In the near future, we'll support other forms of distributed storage. 
+
+Before we start into the next section, [install IPFS Kubo][install-ipfs] and start the IPFS daemon:
 
 ```sh
 ipfs daemon
