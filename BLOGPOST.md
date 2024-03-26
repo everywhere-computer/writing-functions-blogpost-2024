@@ -396,6 +396,12 @@ Lastly, [a workflow][div-by-zero-workflow] that attempts division by zero to che
 }
 ```
 
+Post this workflow:
+
+```sh
+curl localhost:3000/run --json @workflows/division_by_zero.json
+```
+
 On running this workflow, we see two errors:
 
 ![division-by-zero](assets/division-by-zero.png)
