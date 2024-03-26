@@ -183,7 +183,7 @@ Running this script will produce a Wasm component with a `subtract` name prefix 
 
 Wasmify is built on top of [ComponentizeJS][componentize-js], which ingests JavaScript source code and embeds SpiderMonkey in a Wasm component to run it. Embedding SpiderMonkey and running JavaScript code comes at a size and performance cost compared to languages that can compile to WebAssembly directly, but it is necessary to provide a JavaScript environment.
 
-See [Making JavaScript run fast on WebAssembly][javascript-webassembly-post] for more information.
+See [Fast(er) JavaScript on WebAssembly: Portable Baseline Interpreter and Future Plans][javascript-webassembly-post] for more information.
 
 #### Python
 
@@ -233,7 +233,7 @@ Also, the [Introducing Componentize-Py: A Tool for Packaging Python Apps as Comp
 
 ### IPFS
 
-Homestar and Everywhere Computer currently use [IPFS Kubo][kubo] as a storage layer for Wasm components. In the near future, we'll support other forms of distributed storage. 
+Homestar and Everywhere Computer currently use [IPFS Kubo][kubo] as a storage layer for Wasm components. In the near future, we'll support other forms of distributed storage.
 
 Before we start into the next section, [install IPFS Kubo][install-ipfs] and start the IPFS daemon:
 
@@ -454,10 +454,10 @@ We want to offer heartfelt thanks to those developing Wasmtime, ComponentizeJS, 
 [introducing-componentize-py-blog]: https://www.fermyon.com/blog/introducing-componentize-py
 [introducing-componentize-py-video]: https://www.youtube.com/watch?v=PkAO17lmqsI
 [ipfs]: https://ipfs.tech/
-[ipvm]: https://fission.codes/ecosystem/ipvm/
+[ipvm]: https://github.com/ipvm-wg
 [ir]: https://en.wikipedia.org/wiki/Intermediate_representation
 [james-dennis]: https://jmsdnns.com/
-[javascript-webassembly-post]: https://bytecodealliance.org/articles/making-javascript-run-fast-on-webassembly
+[javascript-webassembly-post]: https://cfallin.org/blog/2023/10/11/spidermonkey-pbl/
 [js-setup]: https://github.com/everywhere-computer/writing-functions-blogpost-2024/tree/main/javascript#setup
 [joel-dice]: https://github.com/dicej
 [kubo]: https://docs.ipfs.tech/how-to/command-line-quick-start/
