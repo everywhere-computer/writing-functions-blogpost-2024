@@ -187,7 +187,7 @@ See [Making JavaScript run fast on WebAssembly][javascript-webassembly-post] for
 
 #### Python
 
-For this section on Python, we will use use [componentize-py][componentize-py] to generate a Wasm component. If you're following along with the code examples, please make sure to run the [Python setup][python-setup] instructions.
+For this section on Python, we will use use [componentize-py][componentize-py] to generate a Wasm component. If you're following along with the code examples, please run the [Python setup][python-setup] instructions.
 
 Our WIT interface defines a `multiply` function:
 
