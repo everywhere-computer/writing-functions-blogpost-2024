@@ -10,7 +10,7 @@ Wasm components are documeted individually by their source language:
 
 ## Setup
 
-Install or download a binary for the `wit-deps-cli`. Binaries are available on the [`wits-deps` releases page][wit-deps-releases] or Rust users can install it with `cargo`:
+Install or download a binary for the `wit-deps-cli`. `wit-deps` is a simple dependency manager for managing your WIT interfaces. Binaries are available on the [`wits-deps` releases page][wit-deps-releases] or Rust users can install it with `cargo`:
 
 ```sh
 cargo install wit-deps-cli

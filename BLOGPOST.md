@@ -64,11 +64,9 @@ Clone the [writing-functions-blogpost-2024][writing-functions-repo] repository i
 
 #### Rust
 
-For Rust, we use [`cargo component`][cargo-component] to generate a Wasm component. `cargo component` imagines what first-class support for WebAssembly components might look like for Rust.
+For this section on Rust, we will use [`cargo component`][cargo-component] to generate a Wasm component. If you're following along with the code examples, please run the [Rust setup][rust-setup] instructions.
 
-See the [Rust setup][rust-setup] instructions if you are following along.
-
-Rust support includes referencing WIT dependencies in the Cargo manifest. We reference WASI logging in our manifest:
+`cargo component` imagines what first-class support for WebAssembly components might look like for Rust. Rust support includes referencing WIT dependencies in the Cargo manifest. We reference WASI logging in our manifest:
 
 ```toml
 [package.metadata.component.target.dependencies]
@@ -152,7 +150,7 @@ bindings::export!(Component with_types_in bindings);
 
 #### JavaScript
 
-For JavaScript, we use [Homestar Wasmify][homestar-client] to generate a Wasm component. See the [JavaScript Setup][js-setup] instructions if you are following along.
+For this section on JavaScript, we will use [Homestar Wasmify][homestar-client] to generate a Wasm component. If you're following along with the code examples, please run the [JavaScript setup][js-setup] instructions.
 
 Wasmify is our tool for generating Wasm components from JavaScript code. It generates Wasm components by bundling JavaScript code, generating WIT types from TypeScript code or JSDoc-defined types, and embedding WASI dependencies. Keep in mind that [Wasmify][wasmify-docs] is in development and does not support all WIT-defined types.
 
@@ -189,7 +187,7 @@ See [Making JavaScript run fast on WebAssembly][javascript-webassembly-post] for
 
 #### Python
 
-For Python, we use [componentize-py][componentize-py] to generate a Wasm component. See the [Python Setup][python-setup] instructions if you are following along.
+For this section on Python, we will use use [componentize-py][componentize-py] to generate a Wasm component. If you're following along with the code examples, please run the [Python setup][python-setup] instructions.
 
 Our WIT interface defines a `multiply` function:
 
@@ -235,7 +233,9 @@ Also, the [Introducing Componentize-Py: A Tool for Packaging Python Apps as Comp
 
 ### IPFS
 
-Homestar and Everywhere Computer currently use [IPFS Kubo][kubo] as a storage layer. Before we start into the next section, [install IPFS Kubo][install-ipfs] and start the IPFS daemon:
+Homestar and Everywhere Computer currently use [IPFS Kubo][kubo] as a storage layer for Wasm components. In the near future, we'll support other forms of distributed storage. 
+
+Before we start into the next section, [install IPFS Kubo][install-ipfs] and start the IPFS daemon:
 
 ```sh
 ipfs daemon
