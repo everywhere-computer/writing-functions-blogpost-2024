@@ -6,7 +6,7 @@ _Authors_: [Brian Ginsburg][bgins] and [Zeeshan Lakhani][zeeshan-lakhani]
 
 ---
 
-[Everywhere Computer][everywhere-comp] is an emerging decentralized platform that aims to distribute computational tasks across a vast, open network. This network spans from your personal machine to other devices on your LAN, a cluster of cloud nodes, and even to [PoPs (points of presence)][pop] located at the edge of the Internet. Processing happens as close to the data source as possible or scheduled on nodes with general availability or specialized capabilities like high-powered CPUs or GPUs.
+[Everywhere Computer][everywhere-comp] is an emerging decentralized platform that aims to distribute computational tasks across a vast, open network. This network spans from your personal machine to other devices on your LAN, a cluster of cloud nodes, and even to PoPs (points of presence) located at the edge of the Internet. Processing happens as close to the data source as possible or scheduled on nodes with general availability or specialized capabilities like high-powered CPUs or GPUs.
 
 At its core, Everywhere Computer is built on the [InterPlanetary Virtual Machine (IPVM)][ipvm] protocol. It executes [workflows][workflows] containing tasks that are [content-addressed][content-addressing]—which means they're uniquely identified by their content rather than by their location. This system is powered by our [Homestar runtime][homestar-runtime], an engine that runs Wasm-based workflows composed of [Wasm components][wasm-component] with runnable functions that can be scheduled and executed by any Homestar peer throughout the network.
 
@@ -201,7 +201,7 @@ world multiplication {
 }
 ```
 
-`componentize-py` generates a set of bindings to import in our Python source code. Unlike Rust, the bindings do not need to be written to a file and can be generated on the fly.
+`componentize-py` generates a set of bindings to import into our Python source code. Unlike Rust, the bindings do not need to be written to a file and can be generated on the fly.
 
 Our [Python source code][python-src] multiplies two numbers and logs the operation:
 
@@ -228,8 +228,7 @@ The `-d` option tells `componentize-py` where to look for our WIT interfaces and
 
 `componentize-py` bundles `CPython`, `libc`, and other dependencies into the Wasm component to interpret and provide a Python environment for our code. Like JavaScript, this comes at a size and performance cost but is necessary to run Python code.
 
-We recommend reading the [Introducing Componentize-Py][introducing-componentize-py-blog] blog post for more information on writing Python-sourced components.
-Also, the [Introducing Componentize-Py: A Tool for Packaging Python Apps as Components][introducing-componentize-py-video] is an excellent talk that explains how `componentize-py` works.
+We recommend reading the [Introducing Componentize-Py][introducing-componentize-py-blog] blog post for more information on writing Python-sourced components. Also, [Introducing Componentize-Py: A Tool for Packaging Python Apps as Components][introducing-componentize-py-video] is an excellent talk that explains how `componentize-py` works.
 
 ### IPFS
 
@@ -418,7 +417,7 @@ We have much more to share. For example, you may have noticed that Every CLI sta
 
 We will write about the Control Panel, offloading compute to other nodes in a network based on their capability or a scheduling policy, and working with non-determinism like network requests and persistent state in a workflow in future posts.
 
-#### Acknowledgements
+#### Acknowledgments
 
 We want to offer heartfelt thanks to those developing Wasmtime, ComponentizeJS, Componentize-Py, and the many tools available throughout the Wasm ecosystem. We're ecstatic to be part of this community and to be building on top of these platforms. Special thanks are due to the [Fission team][fission-team], [Alex Crichton][alex-crichton], [Guy Bedford][guy-bedford], [Joel Dice][joel-dice], [Pat Hickey][pat-hickey], [James Dennis][james-dennis], [Paul Cleary][paul-cleary], and the many others who have helped us along the way.
 
@@ -464,7 +463,6 @@ We want to offer heartfelt thanks to those developing Wasmtime, ComponentizeJS, 
 [paul-cleary]: https://github.com/pauljamescleary
 [pat-hickey]: https://github.com/pchickey
 [path-to-components]: https://youtu.be/phodPLY8zNE
-[pop]: https://en.wikipedia.org/wiki/Point_of_presence
 [python-setup]: https://github.com/everywhere-computer/writing-functions-blogpost-2024/tree/main/python#setup
 [python-src]: https://github.com/everywhere-computer/writing-functions-blogpost-2024/blob/main/python/app.py
 [rust-setup]: https://github.com/everywhere-computer/writing-functions-blogpost-2024/tree/main/rust#setup
