@@ -183,7 +183,9 @@ await build({
 
 Running this script will produce a Wasm component with a `subtract` name prefix and a hash, for example `subtract-j54di3rspj2eewjro4.wasm`.
 
-Wasmify is built on top of [ComponentizeJS][componentize-js], which ingests JavaScript source code and embeds SpiderMonkey in a Wasm component to run it. Embedding SpiderMonkey and running JavaScript code comes at a size and performance cost compared to languages that can compile to WebAssembly directly; however, it enables us to empower JavaScript developers to quickly get started with writing custom functions. See [Fast(er) JavaScript on WebAssembly: Portable Baseline Interpreter and Future Plans][javascript-webassembly-post] for more information.
+Wasmify is built on top of [ComponentizeJS][componentize-js], which ingests JavaScript source code and embeds SpiderMonkey in a Wasm component to run it. Embedding SpiderMonkey and running JavaScript code comes at a size and performance cost compared to languages that can compile to WebAssembly directly, but it lets JavaScript developers get started quickly with writing custom functions. 
+
+See [Fast(er) JavaScript on WebAssembly: Portable Baseline Interpreter and Future Plans][javascript-webassembly-post] for more information.
 
 ### Python
 
