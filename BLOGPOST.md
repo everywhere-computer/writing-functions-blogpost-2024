@@ -1,4 +1,4 @@
-# Writing Functions for the Everywhere Computer
+# Functions Everywhere, Only Once: Writing Functions for the Everywhere Computer
 
 This post was published on the [Fission][fission-blog] blog.
 
