@@ -236,7 +236,7 @@ We recommend reading the [Introducing Componentize-Py][introducing-componentize-
 
 We now have a set of Wasm components with arithmetic functions sourced from multiple languages. Let's run these functions together in some workflows!
 
-Install [EveryCLI][every-cli-npm] if you haven't already done so from the [Quickstart docs][ec-quickstart], and then we'll write a workflow.
+Install [EveryCLI][every-cli-npm], and then we'll write a workflow.
 
 Homestar and the Everywhere Computer currently use [IPFS Kubo][kubo] as a content-addressed storage layer for Wasm components. In the near future, we'll support other forms of distributed storage.
 
