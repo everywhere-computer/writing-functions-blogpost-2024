@@ -100,7 +100,7 @@ world math {
 
 `cargo component` generates a set of bindings that produce a `Guest` trait that requires us to implement the interfaces from our WIT world. It also provides an interface for the WASI logging dependency.
 
-Our [Rust source code][rust-src] implements `add` and `divide` with logging for each operation and error reporting when division by zero occurs.
+Our [Rust source code][rust-src] implements `add` and `divide` with logging for each operation and error reporting when division by zero is attempted.
 
 ```rust
 #[allow(warnings)]
