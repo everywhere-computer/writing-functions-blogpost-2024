@@ -403,7 +403,7 @@ The first error is our WASI log reporting a "Division by zero error". The second
 
 In this post, we have introduced the Everywhere Computer and how you can get started writing functions and workflows for it.
 
-So far, to execute workflows, we've used `curl` to POST manually constructed JSON workflows to the gateway. You may have noticed from the EveryCLI start-up that it spins up a local Control Panel web interface:
+So far, to execute workflows, we've used `curl` to POST manually constructed JSON workflows to the gateway. You may have noticed from the EveryCLI starts a Control Panel web interface:
 
 ![control-panel](assets/control-panel.png)
 
