@@ -464,7 +464,7 @@ We want to offer heartfelt thanks to those developing Wasmtime, ComponentizeJS, 
 [ts-src]: https://github.com/everywhere-computer/writing-functions-blogpost-2024/blob/main/javascript/src/subtract.ts
 [wasi-logging]: https://github.com/WebAssembly/wasi-logging/tree/main
 [wasm-component]: https://component-model.bytecodealliance.org/
-[wasmify-docs]: https://docs.everywhere.computer/everycli/#wasmify
+[wasmify]: https://docs.everywhere.computer/everycli/#wasmify
 [wasip2]: https://blog.sunfishcode.online/wasi-0-2/
 [wasmtime]: https://docs.wasmtime.dev/
 [wasmcloud]: https://wasmcloud.com/blog/wasmtime-a-standardized-runtime-for-wasmcloud
