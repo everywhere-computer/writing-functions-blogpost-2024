@@ -22,9 +22,9 @@ Write once, run once, and never run again (everywhere!)
 
 This post will introduce authoring Wasm components and functions for the Everywhere Computer. Wasm components can be written in [several of different programming languages][wit-guest]&mdash;including C/C++, Java (TeaVM Java), Go (TinyGo), and C#&mdash;but we'll focus on Rust, JavaScript, and Python for this post. We'll be writing functions in each of these languages, compiling and packaging them as Wasm components, and bringing them together into a workflow that executes on our compute platform. Along the way, we'll introduce Wasm component tooling, the Homestar runtime, and [EveryCLI][everycli], which provides a convenient interface for running Homestar with a gateway for preparing and executing workflows.
 
-The Everywhere Computer is in beta. The [GitHub repositories][ec-gh] and [docs][ec-docs] are publicly available and open-source licensed, but we have a closed beta group to provide high-quality support and to gather feedback. [Sign up][beta-signup] for the beta group. We would love to hear what you are working on and what ideas you have for using the Everywhere Computer!
+The Everywhere Computer is in beta. The [GitHub repositories][ec-gh] and [docs][ec-docs] are publicly available and open-source licensed. We have a closed beta group to provide high-quality support and to gather feedback. [Sign up][beta-signup] for the beta group. We would love to hear what you are working on and what ideas you have for using the Everywhere Computer!
 
-The code covered in this post is available in the Github repository at [everywhere-computer/writing-functions-blogpost-2024][writing-functions-repo].
+This post is a high-level overview that can be used a companion to the code in the [everywhere-computer/writing-functions-blogpost-2024][writing-functions-repo] repository. We won't cover every detail in this overview, so clone this repository if you would like to follow along.
 
 ## Background: Wasm components, WIT, & WASI logging
 
@@ -60,7 +60,7 @@ In addition, EveryCLI provides detailed information that reports workflow events
 
 ## Writing Functions
 
-We will write arithmetic operations in each source language to keep our example code simple. Our Rust program will perform addition and division, the JavaScript one will perform subtraction, and the Python program will perform multiplication. We will use division to show division by zero error reporting.
+In this post, we will write arithmetic operations in each source language to keep our example code simple. Our Rust program will perform addition and division, the JavaScript one will perform subtraction, and the Python program will perform multiplication. We will use division to show division by zero error reporting.
 
 Our functions will be compiled into Wasm components using tools from or built upon the excellent work of the Bytecode Alliance. The Wasm component ecosystem is evolving quickly, so keep in mind that the techniques described in this blog post may be out of date. We'll provide links so you can check on the latest developments.
 
