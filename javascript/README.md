@@ -2,7 +2,7 @@
 
 For JavaScript, we implement a subtract function. The subtract function subtracts one float from another and returns a float result. It also logs the subtraction operation.
 
-This function is componentized using [Homestar Wasmify][homestar-client].
+This function is componentized using [Homestar Wasmify][homestar-client], which is still in development and does not support all WIT-defined types.
 
 ## Setup
 
