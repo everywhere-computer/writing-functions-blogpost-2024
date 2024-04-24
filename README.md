@@ -26,7 +26,7 @@ wit-deps
 
 [javascript-component]: ./javascript
 [local-blogpost]: ./BLOGPOST.md
-[published-post]: https:://TODO-LINK-TO-PUBLISHED
+[published-post]: https://fission.codes/blog/functions-everywhere-only-once
 [python-component]: ./python
 [rust-component]: ./rust
 [wit-deps-cli]: https://github.com/bytecodealliance/wit-deps
